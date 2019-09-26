@@ -33,7 +33,7 @@ server <- function(input, output, session) {
   driver <- dbDriver("PostgreSQL")
   
   pg_user<-"postgres"
-  pg_host<-"139.59.98.14"
+  pg_host<-"kisi-satupeta.id"
   pg_port<-"5432"
   pg_pwd<-"root"
   
@@ -100,6 +100,8 @@ server <- function(input, output, session) {
                               recentMetadata=data.frame(),
                               selectedRawdata="",
                               recentValidityData=data.frame(),
+                              initialKugi="",
+                              initialShp="",
                               tableKugi="",
                               recentTableWithKugi=data.frame(),
                               recentAttributeTable=NULL,
@@ -155,52 +157,7 @@ server <- function(input, output, session) {
       
       full_file_shp <- paste0(temp_dir, "/", val, ".shp")
       if(file.exists(full_file_shp)){
-        shp_file <- readOGR(dsn = full_file_shp, layer = val)
-        
-        print("Topology.. Checking")
-        if(clgeo_IsValid(shp_file)){
-          print("Topology.. OK")
-          # input to postgres
-          # write to xml
-          # print report
-        } else {
-          # collect invalid issue
-          report_shp<-clgeo_CollectionReport(shp_file)
-          
-          # reset row numbers of original data
-          shp_data <- shp_file@data
-          row.names(shp_data) <- NULL
-          
-          # select FALSE validity
-          print("Topology.. INVALID")
-          shp_invalid <- report_shp[report_shp$valid==FALSE,]
-          
-          # merge shp_data with report_shp
-          final_report_shp <- merge(shp_data, shp_invalid, by="row.names")
-          listOfTbl$recentValidityData <- final_report_shp
-          
-          # clean topology
-          print("Topology.. CLEANING")
-          showModal(ui=modalDialog("Cleaning topology process. Please wait..", footer = NULL), session=session)
-          running_time <- system.time({
-            shp_file_clean <- clgeo_Clean(shp_file)
-          })
-          removeModal(session)
-          print(running_time)
-          
-          # check projection
-          print("Projection.. Checking")
-          wgs84_proj <- CRS("+proj=longlat +datum=WGS84")
-          shp_proj <- crs(shp_file_clean) 
-          if(paste0(shp_proj) != paste0(wgs84_proj)){
-            print("Projection.. TRANSFORM")
-            shp_file <- spTransform(shp_file_clean, wgs84_proj)
-          } else {
-            print("Projection.. MATCH!")
-            shp_file <- shp_file_clean
-          }
-          
-        }        
+        shp_file <- readOGR(dsn = full_file_shp, layer = shp_title)
         
         # get boundary box and dimension
         x_min <- bbox(shp_file)[1]
@@ -210,48 +167,30 @@ server <- function(input, output, session) {
         shp_dim <- dim(shp_file)[1]
         
         # insert shp to postgresql
-        rawdata<-connectDB(pg_raw_db)
         kugi<-connectDB(pg_kugi_db)
         
-        tableKugi <- tolower(unlist(strsplit(input$kugiName, " "))[1])
-        insertShp <- tryCatch({ pgInsert(rawdata, tableKugi, shp_file) }, error=function(e){ return(FALSE) })
-        if(insertShp){
-          print("Shapefile has been imported into database")
-          
-          # mix and match data with kugi
-          alterTableSQL <- paste0("ALTER TABLE ", tableKugi, " ")
-
-          tableKugiInfo <- dbTableInfo(kugi, tableKugi)
-          tblkugilen <- nrow(tableKugiInfo)-1
-          
-          for(i in 2:tblkugilen){
-            nullable <- ""
-            if(tableKugiInfo$is_nullable[i] == "NO") nullable <- " NOT NULL DEFAULT '0'" 
-            
-            datatype_length <- ""
-            if(!is.na(tableKugiInfo$character_maximum_length[i])) datatype_length <- paste0("(", tableKugiInfo$character_maximum_length[i], ")")
-            
-            alterTableSQL <- paste0(alterTableSQL,
-                                    "ADD COLUMN ",
-                                    tableKugiInfo$column_name[i], " ",
-                                    tableKugiInfo$data_type[i],
-                                    datatype_length, 
-                                    nullable
-                                  )
-            
-            alterTableSQL <- ifelse(i != tblkugilen, paste0(alterTableSQL, ", "), paste0(alterTableSQL, ";"))
-          }
-          dbSendQuery(rawdata, alterTableSQL)
-          val <- tableKugi
-          
-          disconnectDB("rawdata", rawdata)
-          disconnectDB("kugi", kugi)
-        } else {
-          print("Shapefile.. FAILED TO IMPORT")
-          showModal(ui=modalDialog("Failed to upload. Please try again..", footer = NULL), session=session)
-          removeModal(session)
-          return()
+        tableKugi <- tolower(input$kugiName)
+        print(tableKugi)
+        # tableKugi <- tolower(unlist(strsplit(input$kugiName, " "))[1])
+        # print("Shapefile has been imported into database")
+        
+        tableKugiInfo <- dbTableInfo(kugi, tableKugi)
+        disconnectDB("kugi", kugi)
+        tblkugilen <- nrow(tableKugiInfo)-1
+        
+        for(i in 2:tblkugilen){
+          new_column <- tableKugiInfo$column_name[i]
+          eval(parse(text=(paste0("shp_file@data$", new_column, "<-''"))))
         }
+        
+        wgs84_proj <- CRS("+proj=longlat +datum=WGS84")
+        shp_file_wgs <- spTransform(shp_file, wgs84_proj)
+        saveRDS(shp_file_wgs, paste0("rawdata/", shp_title))
+        
+        listOfTbl$initialShp <- shp_title
+        listOfTbl$initialKugi <- tableKugi
+        val <- tableKugi
+         
       } else {
         print("Shapefile doesn't exist")
         showModal(ui=modalDialog("Shapefile doesn't exist. Please try again..", footer = NULL), session=session)
@@ -388,8 +327,21 @@ server <- function(input, output, session) {
       status='Belum dikompilasi',
       row.names=NULL
     )
+    
+    ###*Insert Table Approval####
+    tblApproval <- data.frame(
+      unique_id=paste(Sys.getenv("COMPUTERNAME"), Sys.getenv("USERNAME"), sep="_"),
+      file_name=listOfTbl$initialShp,
+      kugi_name=listOfTbl$initialKugi,
+      individual_name=input$indName,
+      organisation_name=input$orgName,
+      position_name=input$posName,
+      status="Belum diotorisasi",
+      row.names=NULL
+    )  
            
     md<-connectDB(pg_md_db)             
+    dbWriteTable(md, "approval", tblApproval, append=TRUE, row.names=FALSE)
     dbWriteTable(md, "metadata", tblMetadata, append=TRUE, row.names=FALSE)
     listOfTbl$recentMetadata <- tblMetadata
     listOfTbl$metadata <- getMetadataTbl()
