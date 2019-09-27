@@ -87,7 +87,7 @@ server <- function(input, output, session) {
   getMetadataTbl <- function(){
     # return(dbReadTable(DB, c("public", "metadata")))
     metadata<-connectDB(pg_md_db)
-    tblMetadata <- dbGetQuery(metadata, "select file_identifier, individual_name, organisation_name, status from metadata;")
+    tblMetadata <- dbGetQuery(metadata, "select file_identifier, individual_name, organisation_name, approval, status from metadata;")
     disconnectDB("metadata", metadata)
     
     return(tblMetadata)
@@ -170,7 +170,6 @@ server <- function(input, output, session) {
         kugi<-connectDB(pg_kugi_db)
         
         tableKugi <- tolower(input$kugiName)
-        print(tableKugi)
         # tableKugi <- tolower(unlist(strsplit(input$kugiName, " "))[1])
         # print("Shapefile has been imported into database")
         
@@ -182,10 +181,6 @@ server <- function(input, output, session) {
           new_column <- tableKugiInfo$column_name[i]
           eval(parse(text=(paste0("shp_file@data$", new_column, "<-''"))))
         }
-        
-        wgs84_proj <- CRS("+proj=longlat +datum=WGS84")
-        shp_file_wgs <- spTransform(shp_file, wgs84_proj)
-        saveRDS(shp_file_wgs, paste0("rawdata/", shp_title))
         
         listOfTbl$initialShp <- shp_title
         listOfTbl$initialKugi <- tableKugi
@@ -199,6 +194,9 @@ server <- function(input, output, session) {
       }
       
       val <- paste0(val, "_", format(Sys.time(), "%Y%m%d%H%M%S"))
+      wgs84_proj <- CRS("+proj=longlat +datum=WGS84")
+      shp_file_wgs <- spTransform(shp_file, wgs84_proj)
+      saveRDS(shp_file_wgs, paste0("rawdata/", val))
     }
 
     updateTextInput(session, inputId=mdEntity$vars[1], value=val)
@@ -324,19 +322,23 @@ server <- function(input, output, session) {
       maintenance_updatefreq='',
       maintenance_note='',
       user_note=input$userNote,
+      approval='Draft',
       status='Belum dikompilasi',
       row.names=NULL
     )
     
     ###*Insert Table Approval####
     tblApproval <- data.frame(
+      id=listOfTbl$numOfMetadata$count+1,
       unique_id=paste(Sys.getenv("COMPUTERNAME"), Sys.getenv("USERNAME"), sep="_"),
       file_name=listOfTbl$initialShp,
       kugi_name=listOfTbl$initialKugi,
       individual_name=input$indName,
       organisation_name=input$orgName,
       position_name=input$posName,
-      status="Belum diotorisasi",
+      status="Draft",
+      approval=paste0('<button id="approve_', listOfTbl$numOfMetadata + 1, '" type="button" class="btn btn-default action-button" onclick="Shiny.onInputChange(&quot;approve_button&quot;, this.id)">Approve</button>'),
+      rejection=paste0('<button id="reject_', listOfTbl$numOfMetadata + 1, '" type="button" class="btn btn-default action-button" onclick="Shiny.onInputChange(&quot;reject_button&quot;, this.id)">Reject</button>'),
       row.names=NULL
     )  
            
@@ -350,12 +352,12 @@ server <- function(input, output, session) {
     updateTabsetPanel(session, "compilationApps", selected="tabData")
   })
   
-  output$reportTopology <- downloadHandler(
-    filename = "topology.csv",
-    content = function(file) {
-      write.table(listOfTbl$recentValidityData, file, quote=FALSE, sep=",")
-    }
-  )
+  # output$reportTopology <- downloadHandler(
+  #   filename = "topology.csv",
+  #   content = function(file) {
+  #     write.table(listOfTbl$recentValidityData, file, quote=FALSE, sep=",")
+  #   }
+  # )
   
   ###*DATA Page####
   output$comp_data <- renderDataTable({
@@ -834,6 +836,10 @@ server <- function(input, output, session) {
             
   })
   
+  observeEvent(input$refreshButton, {
+    listOfTbl$metadata <- getMetadataTbl()
+  })
+  
   observeEvent(input$comp_data_cell_clicked, {
     info <- input$comp_data_cell_clicked
     # print(info)
@@ -846,29 +852,30 @@ server <- function(input, output, session) {
     updateTabsetPanel(session, "compilationApps", selected="tabEditKugi")
     listOfTbl$tableKugi <-  paste0(tolower(unlist(strsplit(info$value, "k_"))[1]), "k")
     
+    shp_rds <- readRDS(paste0("rawdata/", info$value))
+    
     kugiName <- listOfTbl$tableKugi
     if(kugiName == "") return()
     
     # else 
-    rawdata<-connectDB(pg_raw_db)
+    # rawdata<-connectDB(pg_raw_db)
     kugi<-connectDB(pg_kugi_db)
     
-    spatialKugi <- pgGetGeom(rawdata, c("public", kugiName))
-    listOfTbl$recentTableWithKugi <- spatialKugi@data
+    # spatialKugi <- pgGetGeom(rawdata, c("public", kugiName))
+    listOfTbl$recentTableWithKugi <- shp_rds@data
     
-    spatialKugiInfo <- dbTableInfo(rawdata, c("public", kugiName))
-    listOfTbl$recentAttributeTable <- spatialKugiInfo$column_name
+    # spatialKugiInfo <- dbTableInfo(rawdata, c("public", kugiName))
+    listOfTbl$recentAttributeTable <- colnames(shp_rds@data)
     
     kugiInfo <- dbTableInfo(kugi, c("public", kugiName))
     listOfTbl$recentAttributeKugi <- kugiInfo$column_name
     
-    disconnectDB("rawdata", rawdata)
     disconnectDB("kugi", kugi)
   })
   
   ###*KUGI Page####
   output$rawTitle <- renderText({
-    paste0("Selected data: ", listOfTbl$tableKugi)
+    paste0("Data terpilih: ", listOfTbl$tableKugi)
   })
   
   output$editAttribute <- renderDataTable({
@@ -905,71 +912,56 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$finishMatchButton, {
-    # update & alter table
-    # - update attr
-    #   send query: update toponimi_pt_50k set alias = "TOPONIMI"; 
-    # - kumpulin list yg di remove
-    #   send query: alter table toponimi_pt_50k drop column "TOPONIMI"
-    # - insert data to compilated data
-    # - drop data from rawdata
-    
     tableName <- listOfTbl$tableKugi
     listMatch <- listOfTbl$listMatch
+    file_rds <- listOfTbl$selectedRawdata
     print(listMatch)
     
-    data_len <- nrow(listMatch)
-  
-    raw <- connectDB(pg_raw_db)
-    for(i in 1:data_len){
+    shp_rds <- readRDS(paste0("rawdata/", file_rds))
+    print("Topology.. Checking")
+    if(clgeo_IsValid(shp_rds)){
+      print("Topology.. OK")
+    } else {
+      # collect invalid issue
+      report_shp<-clgeo_CollectionReport(shp_rds)
       
-      # updateTableQuery <- paste0("UPDATE ", tableName, " SET ", listMatch$kugi[i], " = \"", listMatch$shp[i], "\"")
-      # print(updateTableQuery)
-      # dbSendQuery(raw, updateTableQuery)
-      # 
-      # alterTableQuery <- paste0("ALTER TABLE ", tableName, " DROP COLUMN ", listMatch$shp[i])
-      # print(alterTableQuery)
-      # dbSendQuery(raw, alterTableQuery)
+      # reset row numbers of original data
+      shp_data <- shp_rds@data
+      row.names(shp_rds) <- NULL
       
-      # update column
-      updateTableQuery <- paste0("UPDATE ", tableName, " SET ", listMatch$kugi[i], " = \"", listMatch$shp[i], "\";")
-      tryUpdate <- tryCatch({
-        dbSendQuery(raw, updateTableQuery)
-      }, error=function(e){
-        message(e)
-        return(FALSE)
+      # select FALSE validity
+      print("Topology.. INVALID")
+      shp_invalid <- report_shp[report_shp$valid==FALSE,]
+      
+      # merge shp_rds with report_shp
+      final_report_shp <- merge(shp_rds, shp_invalid, by="row.names")
+      listOfTbl$recentValidityData <- final_report_shp
+      
+      # clean topology
+      print("Topology.. CLEANING")
+      showModal(ui=modalDialog("Cleaning topology process. Please wait..", footer = NULL), session=session)
+      running_time <- system.time({
+        shp_file_clean <- clgeo_Clean(shp_rds)
       })
-      if(is.logical(tryUpdate)){
-        updateTableQuery <- paste0("UPDATE ", tableName, " SET ", listMatch$kugi[i], " = ", listMatch$shp[i], ";")
-        dbSendQuery(raw, updateTableQuery)
-        print("Update with command 2..")
-      } else {
-        print("Update successful..")
-      }
-      print(updateTableQuery)
+      removeModal(session)
+      print(running_time)
       
-      # alter table drop column
-      alterTableQuery <- paste0("ALTER TABLE ", tableName, " DROP COLUMN \"", listMatch$shp[i], "\";")
-      tryAlter <- tryCatch({
-        dbSendQuery(raw, alterTableQuery)
-      }, error=function(e){
-        message(e)
-        return(FALSE)
-      })
-      if(is.logical(tryAlter)){
-        alterTableQuery <- paste0("ALTER TABLE ", tableName, " DROP COLUMN ", listMatch$shp[i], ";")
-        dbSendQuery(raw, alterTableQuery)
-        print("Alter with command 2..")
+      # check projection
+      print("Projection.. Checking")
+      wgs84_proj <- CRS("+proj=longlat +datum=WGS84")
+      shp_proj <- crs(shp_file_clean) 
+      if(paste0(shp_proj) != paste0(wgs84_proj)){
+        print("Projection.. TRANSFORM")
+        shp_rds <- spTransform(shp_file_clean, wgs84_proj)
       } else {
-        print("Alter successful..")
+        print("Projection.. MATCH!")
+        shp_rds <- shp_file_clean
       }
-      print(alterTableQuery)
-    }  
-    
-    compilatedData <- pgGetGeom(raw, c("public", tableName))
-    disconnectDB("rawdata", raw)
+      
+    }
     
     compdb <- connectDB(pg_comp_db)
-    importToComp <- tryCatch({ pgInsert(compdb, tableName, compilatedData) }, error=function(e){ return(FALSE) })
+    importToComp <- tryCatch({ pgInsert(compdb, tableName, shp_rds) }, error=function(e){ return(FALSE) })
     if(importToComp){
       print("Shapefile has been imported successfully")
       showModal(ui=modalDialog("Data has been compiled", footer = NULL), session=session)
@@ -996,6 +988,7 @@ server <- function(input, output, session) {
     listOfTbl$recentAttributeTable <- NULL
     listOfTbl$recentAttributeKugi <- NULL
     listOfTbl$selectedRawdata <- NULL
+    listOfTbl$metadata <- getMetadataTbl()
     
     removeUI( selector = "div:has(> #rawTitle)" )
     removeUI( selector = "div:has(> #editAttribute)" )

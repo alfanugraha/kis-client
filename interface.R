@@ -213,19 +213,21 @@ navbarPage(title = appsTitle, theme = shinytheme("cerulean"), id="compilationApp
         ###submit####
         "Save Data",
         tabPanel(
-          actionButton("saveButton", "Save")
-        ),
-        tabPanel(
-          downloadButton("reportTopology", "Download Topology Report")
+          actionButton("saveButton", "Simpan")
         )
+        # tabPanel(
+        #   downloadButton("reportTopology", "Unduh Proses Topologi")
+        # )
       )
     ),
     ###Data####
-    tabPanel("Data", value="tabData", icon = icon("database"),
+    tabPanel("Kompilasi Data", value="tabData", icon = icon("database"),
+      actionButton("refreshButton", "Refresh"),
+      hr(),
       dataTableOutput("comp_data")
     ),
     ###Edit Attribut KUGI####
-    tabPanel("Edit Attribute Table", value="tabEditKugi", icon = icon("edit"),
+    tabPanel("Padu Padan KUGI", value="tabEditKugi", icon = icon("edit"),
       h1(textOutput("rawTitle")),
       hr(),
       dataTableOutput("editAttribute"),
@@ -233,12 +235,12 @@ navbarPage(title = appsTitle, theme = shinytheme("cerulean"), id="compilationApp
       "Padu padan kolom atribut",
       uiOutput("listOfShpColumn"),
       uiOutput("listOfKugiAttrib"),
-      actionButton("matchButton", "Match"),
-      actionButton("finishMatchButton", "Finish")
+      actionButton("matchButton", "Padu Padan"),
+      actionButton("finishMatchButton", "Selesai")
     )
   ),
 
   ###About####
-  tabPanel("About"
+  tabPanel("Tentang"
   )
 )
