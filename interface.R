@@ -4,6 +4,25 @@ navbarPage(title = appsTitle, theme = shinytheme("cerulean"), id="compilationApp
     # slickROutput("slideshow", width="100%"),
     # hr(),
     jumbotron("KIS SATU PETA", "Mempermudah proses penatagunaan lahan. Menghindari konflik penatagunaan lahan. Mempercepat proses perizinan penatagunaan lahan.", button=FALSE),
+    withTags({
+      div(class="container", 
+          div(class="row",
+            div(class="col-md-4",
+              h2("Kompilasi"),
+              p("Proses pengumpulan Informasi Geospasial (IG) Tematik yang dimiliki oleh Kementerian/Lembaga saat ini")
+            ),
+            div(class="col-md-4",
+              h2("Integrasi"),
+              p("Proses penyelarasan IG Tematik, baik yang telah dimiliki oleh Kementerian/Lembaga maupun yang baru dibuat, terhadap IG Dasar")
+            ),
+            div(class="col-md-4",
+              h2("Sinkronisasi"),
+              p("Proses penyelarasan antar IG Tematik, termasuk didalamnya penyelesaian konflik yang terjadi akibat tumpang tindih hasil Integrasi")
+            )
+          )
+      )
+    }),
+    hr(),
     uiOutput("countData"),
     fluidRow(
       column(6, panel_div("primary", panel_title="Data Status", "active")),
@@ -17,7 +36,7 @@ navbarPage(title = appsTitle, theme = shinytheme("cerulean"), id="compilationApp
   ###Compilation####
   navbarMenu("Kompilasi",
     ###Upload####
-    tabPanel("Upload", value="tabUpload", icon = icon("upload"),
+    tabPanel("Unggah", value="tabUpload", icon = icon("upload"),
       navlistPanel(widths = c(2, 10),
         ###input shapefile####
         # "Upload Data",
@@ -221,7 +240,7 @@ navbarPage(title = appsTitle, theme = shinytheme("cerulean"), id="compilationApp
       )
     ),
     ###Data####
-    tabPanel("Kompilasi Data", value="tabData", icon = icon("database"),
+    tabPanel("Data", value="tabData", icon = icon("database"),
       actionButton("refreshButton", "Refresh"),
       hr(),
       dataTableOutput("comp_data")
@@ -230,13 +249,73 @@ navbarPage(title = appsTitle, theme = shinytheme("cerulean"), id="compilationApp
     tabPanel("Padu Padan KUGI", value="tabEditKugi", icon = icon("edit"),
       h1(textOutput("rawTitle")),
       hr(),
-      dataTableOutput("editAttribute"),
-      hr(),
       "Padu padan kolom atribut",
+      hr(),
       uiOutput("listOfShpColumn"),
       uiOutput("listOfKugiAttrib"),
       actionButton("matchButton", "Padu Padan"),
-      actionButton("finishMatchButton", "Selesai")
+      actionButton("finishMatchButton", "Kompilasi"),
+      hr(),
+      rHandsontableOutput("editAttribute")
+    )
+  ),
+  ###Integration####
+  navbarMenu("Integrasi",
+    tabPanel("IGT & IGD", values="tabSelectIgd", 
+      fluidRow(
+        box(width = 3, status = 'warning', solidHeader = TRUE,
+          uiOutput("listOfCompData"),
+          uiOutput("listOfIgdData"),
+          actionButton("unionButton", "Union")
+        ),
+        box(width = 9, status = 'warning',
+          leafletOutput("map",height = 650)
+        )
+      )
+    ),
+    # "----",
+    # "Viewer",
+    # tabPanel("Map Viewer")
+    ###Data####
+    tabPanel("Status", value="tabDataInt",
+      uiOutput("listOfIntgData"),
+      actionButton("generateSelectedInt", "Muat atribut"),
+      hr(),
+      rHandsontableOutput("integration_data"),
+      actionButton("integrationButton", "Integrasi")
+    )
+  ),
+  
+  ###Synchronization####
+  navbarMenu("Sinkronisasi",
+    tabPanel("Data Tatakan & Izin",
+      fluidRow(
+        box(width = 3, status = 'warning',
+          # checkboxGroupInput("dataTatakan", label = h3("Data Tatakan dan Izin"),
+          #                choices = list("Batas Distrik Kabupaten Jayapura" = "adm_jpr_bappedanew_4", "HPH" = "jpr_hph", "Kebun 1" = "jpr_kebun1", "Kebun 2" = "jpr_kebun2", "Tambang" = "jpr_mine_explore", "Batas Kecamatan Jayapura" = "kab_jayapura_2010_54s"),
+          #                selected = c("adm_jpr_bappedanew_4", "jpr_hph", "jpr_kebun1")
+          #               ),
+          checkboxGroupInput("dataTatakan", label = h3("Data Tatakan dan Izin"),
+                         choices = list("Penunjukkan OKI"="Penunjukan_OKI", "Penunjukkan Sumatera Selatan"="Penunjukan_Sumsel", "Pola Ruang OKI"="Pola_Ruang_OKI", "Pola Ruang Sumatera Selatan"="polaruang_sumsel"),
+                         selected = c("Penunjukan_OKI", "Penunjukan_Sumsel")
+                        ),
+          uiOutput("listOfIntgSyncData"),
+          actionButton("unionSyncButton", "Union")
+        ),
+        box(width = 9, status = 'warning',
+          leafletOutput("mapSync",height = 650)
+        )
+      )
+    ),
+    tabPanel("Status",
+      uiOutput("listOfSyncData"),
+      actionButton("generateSelectedSync", "Muat atribut"),
+      hr(),
+      rHandsontableOutput("syncData"),
+      actionButton("integrationButton", "Sync")         
+    ),
+    tabPanel("Satu Peta",
+      dataTableOutput("satuPetaData")         
     )
   ),
 

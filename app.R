@@ -16,8 +16,20 @@ library(RPostgreSQL)
 library(rpostgis)
 library(cleangeo)
 library(DT)
+library(rhandsontable)
 
 library(leaflet)
+
+# adm_jpr_bappedanew_4<-readRDS("rawdata/adm_jpr_bappedanew_4")
+# jpr_hph<-readRDS("rawdata/jpr_hph")
+# jpr_kebun1<-readRDS("rawdata/jpr_kebun1")
+# jpr_kebun2<-readRDS("rawdata/jpr_kebun2")
+# jpr_mine_explore<-readRDS("rawdata/jpr_mine_explore")
+# kab_jayapura_2010_54s<-readRDS("rawdata/kab_jayapura_2010_54s")
+readRDS("rawdata/polaruang_sumsel")
+readRDS("rawdata/Penunjukan_Sumsel")
+readRDS("rawdata/Pola_Ruang_OKI")
+readRDS("rawdata/Penunjukan_OKI")
 
 ###*Define Variables####
 source('variables.R')
@@ -33,7 +45,7 @@ server <- function(input, output, session) {
   driver <- dbDriver("PostgreSQL")
   
   pg_user<-"postgres"
-  pg_host<-"kisi-satupeta.id"
+  pg_host<-"localhost"
   pg_port<-"5432"
   pg_pwd<-"root"
   
@@ -41,9 +53,9 @@ server <- function(input, output, session) {
   pg_md_db<-"metadata"
   pg_kugi_db<-"kugi5"
   pg_comp_db<-"compilation"
-  # pg_igd_db<-"IGD"
-  # pg_int_db<-"integration"
-  # pg_sync_db<-"sync"
+  pg_igd_db<-"IGD"
+  pg_int_db<-"integration"
+  pg_sync_db<-"sync"
   # pg_onemap_db<-"onemap"
   
   connectDB <- function(pg_db){
@@ -76,13 +88,13 @@ server <- function(input, output, session) {
     return(count_compilation)
   }
   
-  # countIntTbl <- function(){
-  #   integration<-connectDB(pg_int_db)
-  #   count_integration <- length(dbListTables(integration))-3
-  #   disconnectDB("integration", integration)
-  #   
-  #   return(count_integration)
-  # }
+  countIntTbl <- function(){
+    integration<-connectDB(pg_int_db)
+    count_integration <- length(dbListTables(integration))-3
+    disconnectDB("integration", integration)
+
+    return(count_integration)
+  }
   
   getMetadataTbl <- function(){
     # return(dbReadTable(DB, c("public", "metadata")))
@@ -96,7 +108,7 @@ server <- function(input, output, session) {
   listOfTbl <- reactiveValues(metadata=getMetadataTbl(),
                               numOfMetadata=countMetadataTbl(),
                               numOfCompilated=countCompTbl(),
-                              # numOfIntegrated=countIntTbl(),
+                              numOfIntegrated=countIntTbl(),
                               recentMetadata=data.frame(),
                               selectedRawdata="",
                               recentValidityData=data.frame(),
@@ -104,6 +116,8 @@ server <- function(input, output, session) {
                               initialShp="",
                               tableKugi="",
                               recentTableWithKugi=data.frame(),
+                              integrationData=data.frame(),
+                              sinkronisasiData=data.frame(),
                               recentAttributeTable=NULL,
                               recentAttributeKugi=NULL,
                               listMatch=data.frame())
@@ -124,8 +138,8 @@ server <- function(input, output, session) {
   output$countData <- renderUI({
     tags$ul(class="list-group",
       tags$li(class="list-group-item", span(class="badge", listOfTbl$numOfMetadata$count), "Data Input"),
-      tags$li(class="list-group-item", span(class="badge", listOfTbl$numOfCompilated), "Compilated Data")
-      # tags$li(class="list-group-item", span(class="badge", listOfTbl$numOfIntegrated), "Integrated Data")
+      tags$li(class="list-group-item", span(class="badge", listOfTbl$numOfCompilated), "Compilated Data"),
+      tags$li(class="list-group-item", span(class="badge", listOfTbl$numOfIntegrated), "Integrated Data")
     )
   })
   
@@ -337,8 +351,8 @@ server <- function(input, output, session) {
       organisation_name=input$orgName,
       position_name=input$posName,
       status="Draft",
-      approval=paste0('<button id="approve_', listOfTbl$numOfMetadata + 1, '" type="button" class="btn btn-default action-button" onclick="Shiny.onInputChange(&quot;approve_button&quot;, this.id)">Approve</button>'),
-      rejection=paste0('<button id="reject_', listOfTbl$numOfMetadata + 1, '" type="button" class="btn btn-default action-button" onclick="Shiny.onInputChange(&quot;reject_button&quot;, this.id)">Reject</button>'),
+      approval=paste0('<button id="approve_', listOfTbl$numOfMetadata + 1, '" type="button" class="btn btn-default action-button shiny-bound-input" onclick="Shiny.onInputChange(&quot;approve_button&quot;, this.id)">Approve</button>'),
+      rejection=paste0('<button id="reject_', listOfTbl$numOfMetadata + 1, '" type="button" class="btn btn-default action-button shiny-bound-input" onclick="Shiny.onInputChange(&quot;reject_button&quot;, this.id)">Reject</button>'),
       row.names=NULL
     )  
            
@@ -878,9 +892,10 @@ server <- function(input, output, session) {
     paste0("Data terpilih: ", listOfTbl$tableKugi)
   })
   
-  output$editAttribute <- renderDataTable({
+  output$editAttribute <- renderRHandsontable({
     # recentTableWithKugi <- listOfTbl$recentTableWithKugi
-    datatable(listOfTbl$recentTableWithKugi, editable=TRUE, options=list(scrollX = TRUE))
+    # datatable(listOfTbl$recentTableWithKugi, editable=TRUE, options=list(scrollX = TRUE))
+    rhandsontable(listOfTbl$recentTableWithKugi)
   })
   
   output$listOfShpColumn <- renderUI({
@@ -912,6 +927,7 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$finishMatchButton, {
+    listOfTbl$recentTableWithKugi <- hot_to_r(input$editAttribute)
     tableName <- listOfTbl$tableKugi
     listMatch <- listOfTbl$listMatch
     file_rds <- listOfTbl$selectedRawdata
@@ -926,8 +942,9 @@ server <- function(input, output, session) {
       report_shp<-clgeo_CollectionReport(shp_rds)
       
       # reset row numbers of original data
-      shp_data <- shp_rds@data
-      row.names(shp_rds) <- NULL
+      # shp_data <- shp_rds@data
+      # row.names(shp_rds) <- NULL
+      shp_rds@data <- listOfTbl$recentTableWithKugi
       
       # select FALSE validity
       print("Topology.. INVALID")
@@ -992,7 +1009,252 @@ server <- function(input, output, session) {
     
     removeUI( selector = "div:has(> #rawTitle)" )
     removeUI( selector = "div:has(> #editAttribute)" )
+    
+    updateTabsetPanel(session, "compilationApps", selected="tabData")
   })
+  
+  ###*INTEGRATION####
+  output$listOfCompData <- renderUI({
+    compdb <- connectDB(pg_comp_db)
+    allListComp <- dbListTables(compdb)
+    disconnectDB("compilation", compdb)
+    allListComp <- allListComp[!allListComp %in% c("layer", "topology", "spatial_ref_sys")]
+    selectInput("selectedCompData", "Pilih Kompilasi Data", choices=allListComp, selectize=FALSE)
+  })
+  
+  output$listOfIgdData <- renderUI({
+    igddb <- connectDB(pg_igd_db)
+    allListIgd <- dbListTables(igddb)
+    disconnectDB("IGD", igddb)
+    allListIgd <- allListIgd[!allListIgd %in% c("layer", "topology", "spatial_ref_sys")]
+    selectInput("selectedIgdData", "Pilih IGD Data", choices=allListIgd, selectize=FALSE)
+  })
+  
+  output$map <- renderLeaflet({
+    selectedCompData <- input$selectedCompData
+    selectedIgdData <- input$selectedIgdData
+    
+    compdb <- connectDB(pg_comp_db)
+    compData <- pgGetGeom(compdb, c("public", selectedCompData))
+    compData <- spTransform(compData, CRS("+proj=longlat +datum=WGS84 +no_defs"))
+    igddb <- connectDB(pg_igd_db)
+    igdData <- pgGetGeom(igddb, c("public", selectedIgdData))
+    igdData <- spTransform(igdData, CRS("+proj=longlat +datum=WGS84 +no_defs"))
+    
+    print("render map")
+    # igdData %>% leaflet() %>% addTiles() %>% addPolygons()
+    leaflet() %>% addTiles() %>%
+      addPolygons(data=igdData, weight=3, color = 'red') %>% 
+      addPolygons(data=compData, weight=3, color = 'blue') %>% 
+      addProviderTiles("Esri.OceanBasemap", group = "Esri.OceanBasemap") %>%
+      addProviderTiles("CartoDB.DarkMatter", group = "DarkMatter (CartoDB)") %>%
+      addProviderTiles("OpenStreetMap.Mapnik", group = "OpenStreetmap") %>%
+      addProviderTiles("Esri.WorldImagery", group = "Esri.WorldImagery") %>%
+      addLayersControl(baseGroups = c("OpenStreetmap","Esri.OceanBasemap",'DarkMatter (CartoDB)', 'Esri.WorldImagery'),
+                       options = layersControlOptions(collapsed = TRUE, autoZIndex = F)) %>%
+      addLegend(values = 1, group = "IGD", position = "bottomleft", labels = "IGD", colors= "red") %>%
+      addLegend(values = 2, group = "Kompilasi", position = "bottomleft", labels = "Kompilasi" ,colors= "blue") #%>%
+    
+    # disconnectDB("compilation", compdb)
+    # disconnectDB("IGD", igddb)
+  })
+  
+  observeEvent(input$unionButton, {
+    selectedCompData <- input$selectedCompData
+    selectedIgdData <- input$selectedIgdData
+    
+    compdb <- connectDB(pg_comp_db)
+    compData <- pgGetGeom(compdb, c("public", selectedCompData))
+    igddb <- connectDB(pg_igd_db)
+    igdData <- pgGetGeom(igddb, c("public", selectedIgdData))
+    
+    unionData <- raster::union(igdData, compData)
+    
+    intgdb <- connectDB(pg_int_db)
+    importToIntg <- tryCatch({ pgInsert(intgdb, selectedCompData, unionData) }, error=function(e){ return(FALSE) })
+    if(importToIntg){
+      print("Shapefile has been imported successfully")
+      showModal(ui=modalDialog("Data has been integrated", footer = NULL), session=session)
+      removeModal(session)
+    } else {
+      print("Shapefile.. FAILED TO IMPORT")
+      showModal(ui=modalDialog("Failed to upload. Please try again..", footer = NULL), session=session)
+      removeModal(session)
+    }
+    disconnectDB("compilation", compdb)
+    disconnectDB("IGD", igddb)
+    disconnectDB("integration", intgdb)
+    updateTabsetPanel(session, "compilationApps", selected="tabDataInt")
+  })
+  
+  output$listOfIntgData <- renderUI({
+    intdb <- connectDB(pg_int_db)
+    allListInt <- dbListTables(intdb)
+    disconnectDB("integration", intdb)
+    allListInt <- allListInt[!allListInt %in% c("layer", "topology", "spatial_ref_sys")]
+    selectInput("selectedIntgData", "Pilih Data", choices=allListInt, selectize=FALSE)
+  })
+  
+  observeEvent(input$generateSelectedInt, {
+    selectedIntData <- input$selectedIntgData
+    
+    intgdb <- connectDB(pg_int_db)
+    intgData <- pgGetGeom(intgdb, c("public", selectedIntData))
+    listOfTbl$integrationData <- intgData@data
+    
+    disconnectDB("integration", intgdb)
+  })
+  
+  output$integration_data <- renderRHandsontable({
+    integrationData <- listOfTbl$integrationData
+    integrationData$status_integrasi <- "terintegrasi"
+    rhandsontable(integrationData)
+    
+    # metadata$URL <- paste0('<u>Edit Attribute Data</u>')
+    # datatable(metadata, selection="none", class = 'cell-border strip hover', escape=F) %>% formatStyle(1, cursor = 'pointer')
+  })
+  
+  observeEvent(input$integrationButton, {
+    listOfTbl$integrationData <- hot_to_r(input$integration_data)
+    print(listOfTbl$integrationData)
+    
+    selectedIntData <- input$selectedIntgData
+    
+    intgdb <- connectDB(pg_int_db)
+    intgData <- pgGetGeom(intgdb, c("public", selectedIntData))
+    
+    intgData@data <- listOfTbl$integrationData
+    
+    # dissolve
+    intgData <- gUnaryUnion(intgData, id = intgData@data$status_integrasi)
+    df <- data.frame(id = getSpPPolygonsIDSlots(intgData))
+    row.names(df) <- getSpPPolygonsIDSlots(intgData)
+    intgData <- SpatialPolygonsDataFrame(intgData, data=df)
+    
+    # rejoin with kugi
+    kugi<-connectDB(pg_kugi_db)
+    
+    tableKugi <- tolower(selectedIntData)
+    
+    tableKugiInfo <- dbTableInfo(kugi, tableKugi)
+    disconnectDB("kugi", kugi)
+    tblkugilen <- nrow(tableKugiInfo)-1
+    
+    for(i in 2:tblkugilen){
+      new_column <- tableKugiInfo$column_name[i]
+      eval(parse(text=(paste0("intgData@data$", new_column, "<-''"))))
+    }
+    
+    syncdb <- connectDB(pg_sync_db)
+    importToIntg <- tryCatch({ pgInsert(syncdb, selectedIntData, intgData) }, error=function(e){ return(FALSE) })
+    if(importToIntg){
+      print("Shapefile has been imported successfully")
+      showModal(ui=modalDialog("Data has been integrated", footer = NULL), session=session)
+      removeModal(session)
+    } else {
+      print("Shapefile.. FAILED TO IMPORT")
+      showModal(ui=modalDialog("Failed to upload. Please try again..", footer = NULL), session=session)
+      removeModal(session)
+    }
+    disconnectDB("sync", syncdb)
+    disconnectDB("integration", intgdb)
+    listOfTbl$integrationData <- data.frame()
+  })
+  
+  ###*SYNCHRONIZATION####
+  output$listOfIntgSyncData <- renderUI({ # to be reactive soon
+    intdb <- connectDB(pg_int_db)
+    allListInt <- dbListTables(intdb)
+    disconnectDB("integration", intdb)
+    allListInt <- allListInt[!allListInt %in% c("layer", "topology", "spatial_ref_sys")]
+    selectInput("selectedIntgSyncData", "Pilih Data Integrasi", choices=allListInt, selectize=FALSE)
+  })
+  
+  output$mapSync <- renderLeaflet({
+    selectedIntgData <- input$selectedIntgSyncData
+    
+    intdb <- connectDB(pg_int_db)
+    igdData <- pgGetGeom(intdb, c("public", selectedIntgData))
+    igdData <- spTransform(igdData, CRS("+proj=longlat +datum=WGS84 +no_defs"))
+    
+    print("render map")
+    # igdData %>% leaflet() %>% addTiles() %>% addPolygons()
+    # leaflet() %>% addTiles() %>%
+    #   addPolygons(data=adm_jpr_bappedanew_4, weight=3, color = 'blue', group = "Batas Distrik Kabupaten Jayapura") %>% 
+    #   addPolygons(data=kab_jayapura_2010_54s, weight=3, color = '#fff000', group = "Batas Kecamatan Jayapura") %>% 
+    #   addPolygons(data=jpr_hph, weight=3, color = '#0f0f0f', group = "HPH") %>% 
+    #   addPolygons(data=jpr_kebun1, weight=3, color = '#00ff00', group = "Kebun 1") %>% 
+    #   addPolygons(data=jpr_kebun2, weight=3, color = '#ff00ff', group = "Kebun 2") %>%
+    #   addPolygons(data=jpr_mine_explore, weight=3, color = '#00ffff', group = "Tambang") %>% 
+    #   addPolygons(data=igdData, weight=3, color = 'red', group = "Data Integrasi") %>% 
+    #   addProviderTiles("Esri.OceanBasemap", group = "Esri.OceanBasemap") %>%
+    #   addProviderTiles("CartoDB.DarkMatter", group = "DarkMatter (CartoDB)") %>%
+    #   addProviderTiles("OpenStreetMap.Mapnik", group = "OpenStreetmap") %>%
+    #   addProviderTiles("Esri.WorldImagery", group = "Esri.WorldImagery") %>%
+    #   setView(139.952811, -3.101442, zoom = 9) %>%
+    #   addLayersControl(baseGroups = c("OpenStreetmap","Esri.OceanBasemap",'DarkMatter (CartoDB)', 'Esri.WorldImagery'),
+    #                    overlayGroups = c("Batas Distrik Kabupaten Jayapura", "Batas Kecamatan Jayapura", "HPH", "Kebun 1", "Kebun 2", "Tambang", "Data Integrasi"),
+    #                    options = layersControlOptions(collapsed = TRUE, autoZIndex = F))
+    
+    leaflet() %>% addTiles() %>%
+      addPolygons(data=Penunjukan_OKI, weight=3, color = 'blue', group = "Penunjukkan OKI") %>% 
+      addPolygons(data=Penunjukan_Sumsel, weight=3, color = '#fff000', group = "Penunjukkan Sumatera Selatan") %>% 
+      addPolygons(data=Pola_Ruang_OKI, weight=3, color = '#0f0f0f', group = "Pola Ruang OKI") %>% 
+      addPolygons(data=polaruang_sumsel, weight=3, color = '#00ff00', group = "Pola Ruang Sumatera Selatan") %>% 
+      addPolygons(data=igdData, weight=3, color = 'red', group = "Data Integrasi") %>% 
+      addProviderTiles("Esri.OceanBasemap", group = "Esri.OceanBasemap") %>%
+      addProviderTiles("CartoDB.DarkMatter", group = "DarkMatter (CartoDB)") %>%
+      addProviderTiles("OpenStreetMap.Mapnik", group = "OpenStreetmap") %>%
+      addProviderTiles("Esri.WorldImagery", group = "Esri.WorldImagery") %>%
+      # setView(139.952811, -3.101442, zoom = 9) %>%
+      setView(105.241668, -3.462136, zoom = 8) %>%
+      addLayersControl(baseGroups = c("OpenStreetmap","Esri.OceanBasemap",'DarkMatter (CartoDB)', 'Esri.WorldImagery'),
+                       overlayGroups = c("Penunjukkan OKI", "Penunjukkan Sumatera Selatan", "Pola Ruang OKI", "Pola Ruang Sumatera Selatan"),
+                       options = layersControlOptions(collapsed = TRUE, autoZIndex = F))
+  })
+  
+  observeEvent(input$unionSyncButton, {
+    
+  })
+  
+  output$listOfSyncData <- renderUI({
+    syndb <- connectDB(pg_sync_db)
+    allListSyn <- dbListTables(syndb)
+    disconnectDB("sinkronisasi", syndb)
+    allListSyn <- allListSyn[!allListSyn %in% c("layer", "topology", "spatial_ref_sys")]
+    selectInput("selectedSyncData", "Pilih Data Sinkronisasi", choices=allListSyn, selectize=FALSE)
+  })
+  
+  observeEvent(input$generateSelectedSync, {
+    selectedSynData <- input$selectedSyncData
+    
+    syndb <- connectDB(pg_sync_db)
+    synData <- pgGetGeom(syndb, c("public", selectedSynData))
+    listOfTbl$sinkronisasiData <- synData@data
+    
+    disconnectDB("sinkronisasi", syndb)
+  })
+  
+  output$syncData <- renderRHandsontable({
+    sinkronisasiData <- listOfTbl$sinkronisasiData
+    sinkronisasiData$status_integrasi <- NULL
+    rhandsontable(sinkronisasiData)
+  })
+  
+  output$satuPetaData <- renderDataTable({
+    syndb <- connectDB(pg_sync_db)
+    allListSyn <- dbListTables(syndb)
+    disconnectDB("sinkronisasi", syndb)
+    allListSyn <- allListSyn[!allListSyn %in% c("layer", "topology", "spatial_ref_sys")]
+    onemap<-data.frame(allListSyn)
+    colnames(onemap) = "Data Satu Peta"
+    
+    Action <- shinyInput(actionButton, nrow(onemap), 'button_', label="Export", onclick='Shiny.onInputChange(\"export_onemap\", this.id)')
+    onemap <- cbind(onemap, Action)
+    
+    datatable(onemap, selection="none", class = 'cell-border strip hover', escape=F) %>% formatStyle(1, cursor = 'pointer')
+  })
+  
 }
 
 ###*Run the application#### 
