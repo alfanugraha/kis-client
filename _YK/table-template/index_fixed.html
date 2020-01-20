@@ -4,9 +4,84 @@
   <meta charset="UTF-8">
   <title>Fixed table header</title>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel="stylesheet" href="css/style.css">
-
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="css/style.css"> -->
+  <style>
+        
+    h1{
+      font-size: 30px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    table{
+      width:100%;
+      table-layout: fixed;
+    }
+    .tbl-header{
+      background-color: #78C6F7;
+     }
+    .tbl-content{
+      height:600px;
+      overflow-x:auto;
+      margin-top: 0px;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    th{
+      padding: 20px 15px;
+      text-align: center;
+      font-style : bold;
+      font-weight: 500;
+      font-size: 18px;
+      color: black ;
+    }
+    td{
+      padding: 15px;
+      text-align: center;
+      vertical-align:middle;
+      font-weight: 300;
+      font-size: 14px;
+      color: black ;
+      border-bottom: solid 1px rgba(255,255,255,0.1);
+    }
+    
+    /* demo styles */
+    
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+    body{
+      background: -webkit-linear-gradient(left, #ccc #fff);
+      background: linear-gradient(to right, #ccc, #fff);
+      font-family: 'Poppins', sans-serif;
+    }
+    section{
+      margin: 50px;
+    }
+    
+    /* for custom scrollbar for webkit browser*/
+    
+    ::-webkit-scrollbar {
+        width: 6px;
+    } 
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    } 
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    }
+    
+    /*search function*/
+    #myInput {
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      width: 200px;
+      font-size: 12px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+  </style>
   
 </head>
 
@@ -196,9 +271,34 @@
   </div>
 </section>
 
+<script>
+  $(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
 
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script src="js/index.js"></script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+  <!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="js/index.js"></script> -->
 
 </body>
 </html>
