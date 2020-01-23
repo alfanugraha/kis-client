@@ -91,7 +91,7 @@
       /********* Form and Submit Button *********/
       input[type=text], select {
         font-family: 'Poppins', sans-serif;       
-        width: 30%;
+        width: 400px;
         padding: 12px 20px;
         margin: 8px 0;
         display: block;
@@ -124,42 +124,57 @@
         padding: 20px;
       }
       
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-          }
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+      }
           
-          /* Style the buttons that are used to open the tab content */
-          .tab button {
-            font-family: 'Poppins', sans-serif;
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-          }
+      /* Style the buttons that are used to open the tab content */
+      .tab button {
+        font-family: 'Poppins', sans-serif;
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        }
           
-          /* Change background color of buttons on hover */
-          .tab button:hover {
-            background-color: #ddd;
-          }
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        background-color: #ddd;
+        }
           
-          /* Create an active/current tablink class */
-          .tab button.active {
-            background-color: #ccc;
-          }
+      /* Create an active/current tablink class */
+      .tab button.active {
+        background-color: #ccc;
+        }
           
-          /* Style the tab content */
-          .tabcontent {
-            font-family: 'Poppins', sans-serif;
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-          }      
+      /* Style the tab content */
+      .tabcontent {
+        font-family: 'Poppins', sans-serif;
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+        }
+          
+      /*Done button */
+      .hide {
+        padding : 10px;
+        font-family: 'Poppins', sans-serif;
+        width: 100px;
+        background-color: #4CAF50;
+        color: white;
+        margin-top : 20px;
+        margin-left: 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+            
+        }
 </style>
 
 <!------------------- Navbar Menu ------------------->
@@ -168,65 +183,66 @@
     Kompilasi
   </div>
   <ul class="sidebar-navigation">
-    <li>
-      <a href="#upload">
-        <i class="fa fa-home" aria-hidden="true"></i> Upload Data
+    <li id="upload">
+      <a href="#cc-upload">
+        <i class="" aria-hidden="true"></i> Upload Data
       </a>
     </li>
     <li class="header">Input Data</li>
-    <li>
-      <a href="#metadata">
-        <i class="fa fa-users" aria-hidden="true"></i> Metadata
+    <li id="metadata">
+      <a href="#cc-metadata">
+        <i class="" aria-hidden="true"></i> Metadata
       </a>
     </li>
-    <li>
-      <a href="#contact">
-        <i class="fa fa-cog" aria-hidden="true"></i> Contact
+    <li id="contact">
+      <a href="#cc-contact">
+        <i class="" aria-hidden="true"></i> Contact
       </a>
     </li>
-    <li>
-      <a href="#spatial">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Spatial Representation Info
+    <li id="spatial">
+      <a href="#cc-spatial">
+        <i class="" aria-hidden="true"></i> Spatial Representation Info
       </a>
     </li>
-    <li>
-      <a href="#reference">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Reference System Info
+    <li id="reference">
+      <a href="#cc-reference">
+        <i class="" aria-hidden="true"></i> Reference System Info
       </a>
     </li>
-    <li>
-      <a href="#identification">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Identification Info
+    <li
+    id="identification">
+      <a href="#cc-identification">
+        <i class="" aria-hidden="true"></i> Identification Info
       </a>
     </li>
-    <li>
-      <a href="#distribution">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Distribution Info
+    <li id="distribution">
+      <a href="#cc-distribution">
+        <i class="" aria-hidden="true"></i> Distribution Info
       </a>
     </li>
-    <li>
-      <a href="#transfer">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Transfer Options
+    <li id="transfer">
+      <a href="#cc-transfer">
+        <i class="" aria-hidden="true"></i> Transfer Options
       </a>
     </li>
-    <li>
-      <a href="#maintenance">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Metadata Maintenance
+    <li id="maintenance">
+      <a href="#cc-maintenance">
+        <i class="" aria-hidden="true"></i> Metadata Maintenance
       </a>
     </li>
-    <li>
-      <a href="#constrains">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Metada Constrains
+    <li id="constrains">
+      <a href="#cc-constrains">
+        <i class="" aria-hidden="true"></i> Metada Constrains
       </a>
     </li>
     <li class="header">Save Data</li>
       <input type="submit" value="Submit">
   </ul>
 </div>
-<!------------------- Navbar Menu ------------------->
+<!------------------- Navbar Menu End------------------->
 
 <!------------------- Tab Contact ------------------->
-<div class="content-container">
+<div class="content-container" id="cc-contact" style="display:none;">
 
   <div class="container-fluid" id="contact">
       <div class="tab">
@@ -257,7 +273,7 @@
           </form>
           </div>
       
-      <!------------------- Contact-Identify ------------------->
+      <!------------------- Contact-Identify End ------------------->
       </div>
       
       <div id="Location" class="tabcontent">
@@ -283,8 +299,7 @@
                 <input type="text" id="lname" name="lastname" placeholder="">
               </form>
             </div>
-      
-      <!------------------- Contact-Location ------------------->
+      <!------------------- Contact-Location End ------------------->
       </div>
       
       <div id="Function" class="tabcontent">
@@ -310,12 +325,15 @@
                 <input type="text" id="lname" name="lastname" placeholder="">
               </form>
             </div>
-      <!------------------- Contact-Function ------------------->
+      <!------------------- Contact-Function End ------------------->
       </div>
-
-<!------------------- Tab Contact ------------------->      
+    </div>
+    <button class="hide">Done</button>
+  </div>
+<!------------------- Tab Contact End ------------------->      
 
 <!------------------- Upload Data ------------------->
+      <div class="content-container" id="cc-upload" style="display:none;">
         <div class="container-fluid" id="upload">
           <div class="container">
             <form action="/action_page.php">
@@ -339,10 +357,13 @@
           <input type="file" name="fileToUpload" id="fileToUpload">
             </form>
           </div>
-          </div>
-<!------------------- Upload Data ------------------->
+        </div>
+          <button class="hide">Done</button>
+      </div>
+<!------------------- Upload Data End ------------------->
       
 <!------------------- Metadata Forms ------------------->
+     <div class="content-container" id="cc-metadata" style="display:none;">
       <div class="container-fluid" id="metadata">
       <div class="container">
         <form action="/action_page.php">
@@ -370,10 +391,13 @@
           <label for="lname">Data Set URI</label>
           <input type="text" id="lname" name="lastname" placeholder="">          
         </form>
+        <button class="hide">Done</button>
       </div>
       </div>
-<!------------------- Metadata Forms ------------------->
+      </div>
+<!------------------- Metadata Forms End------------------->
 
+<div class="content-container" id="cc-spatial" style="display:none;">
   <div class="container-fluid" id="spatial">
       <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'Properties')">Properties</button>
@@ -403,7 +427,7 @@
                   <input type="text" id="lname" name="lastname" placeholder="">
                 </form>
               </div>
-        <!------------------- Spatial Representation Info-Properties ------------------->
+        <!------------------- Spatial Representation Info-Properties End------------------->
       </div>
       
       <div id="Dimension" class="tabcontent">
@@ -432,10 +456,13 @@
                   <input type="text" id="lname" name="lastname" placeholder="">
                 </form>
               </div>
-        <!------------------- Spatial Representation Info-Dimension ------------------->
+        <!------------------- Spatial Representation Info-Dimension End------------------->
       </div>
   </div>
+  <button class="hide">Done</button>
+</div>
 
+<div class="content-container" id="cc-reference" style="display:none;">
   <div class="container-fluid" id="reference">
       <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'Info')">Info</button>
@@ -471,7 +498,7 @@
                     <input type="text" id="lname" name="lastname" placeholder="">
                   </form>
                 </div>
-          <!------------------- Reference System Info-Info ------------------->
+          <!------------------- Reference System Info-Info End------------------->
       </div>
 
       
@@ -492,10 +519,13 @@
                     <input type="text" id="lname" name="lastname" placeholder="">
                   </form>
                 </div>
-          <!------------------- Reference System Info-CRS ------------------->
+          <!------------------- Reference System Info-CRS End------------------->
       </div>
   </div>
+  <button class="hide">Done</button>
+</div>
   
+<div class="content-container" id="cc-identification" style="display:none;">  
   <div class="container-fluid" id="identification">
       <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'id-desc')">Description</button>
@@ -529,7 +559,7 @@
                     <input type="text" id="lname" name="lastname" placeholder="">
                   </form>
                 </div>
-          <!------------------- Identification Info-Description ------------------->
+          <!------------------- Identification Info-Description End------------------->
       </div>
       
       <div id="id-info" class="tabcontent">
@@ -570,7 +600,7 @@
                     </select>
                   </form>
                 </div>
-          <!------------------- Identification Info-Info ------------------->
+          <!------------------- Identification Info-Info End------------------->
       </div>
       
       <div id="id-coor" class="tabcontent">
@@ -590,10 +620,13 @@
                     <input type="text" id="lname" name="lastname" placeholder="">
                   </form>
                 </div>
-          <!------------------- Identification Info-Coordinates ------------------->
+          <!------------------- Identification Info-Coordinates End------------------->
       </div>
   </div>
-  
+  <button class="hide">Done</button>
+ </div>
+ 
+ <div class="content-container" id="cc-distribution" style="display:none;">
   <div class="container-fluid" id="distribution">
       <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'dist-location')">Location</button>
@@ -623,7 +656,7 @@
                     <input type="text" id="lname" name="lastname" placeholder="">
                   </form>
                 </div>
-          <!------------------- Distribution Info-Location ------------------->
+          <!------------------- Distribution Info-Location End------------------->
       </div>
 
       
@@ -650,10 +683,13 @@
                     <input type="text" id="lname" name="lastname" placeholder="distributor">
                   </form>
                 </div>
-          <!------------------- Distribution Info-Function ------------------->
+          <!------------------- Distribution Info-Function End------------------->
       </div>
   </div>
+  <button class="hide">Done</button>
+</div>
 
+<div class="content-container" id="cc-transfer" style="display:none;">
   <div class="container-fluid" id="transfer">
       <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'WFS')">WFS</button>
@@ -682,7 +718,7 @@
                     <input type="text" id="lname" name="lastname" placeholder="">      
                   </form>
                 </div>
-          <!------------------- Transfer Options-WFS ------------------->
+          <!------------------- Transfer Options-WFS End------------------->
       </div>
       
       <div id="WMS" class="tabcontent">
@@ -705,7 +741,7 @@
                     <input type="text" id="lname" name="lastname" placeholder="">      
                   </form>
                 </div>
-          <!------------------- Transfer Options-WMS ------------------->
+          <!------------------- Transfer Options-WMS End------------------->
       </div>
       
       <div id="ZIP" class="tabcontent">
@@ -728,7 +764,7 @@
                     <input type="text" id="lname" name="lastname" placeholder="">      
                   </form>
                 </div>
-          <!------------------- Transfer Options-ZIP Shapefile ------------------->
+          <!------------------- Transfer Options-ZIP Shapefile End------------------->
       </div>
 
       <div id="ImageWFS" class="tabcontent">
@@ -751,11 +787,14 @@
                     <input type="text" id="lname" name="lastname" placeholder="">      
                   </form>
                 </div>
-          <!------------------- Transfer Options-ImageWFS ------------------->
+          <!------------------- Transfer Options-ImageWFS End------------------->
       </div>
   </div>
+  <button class="hide">Done</button>
+</div>
 
 <!------------------- Metadata Maintenance ------------------->
+   <div class="content-container" id="cc-maintenance" style="display:none;">
     <div class="container-fluid" id="maintenance">
       <div class="container">
         <form action="/action_page.php">
@@ -765,11 +804,14 @@
           <label for="lname">Maintenance Note</label>
           <input type="text" id="lname" name="lastname" placeholder="Dibuat oleh Alat Bantu Kompilasi">
         </form>
+        <button class="hide">Done</button>
       </div>
     </div>
-<!------------------- Metadata Maintenance ------------------->
+    </div>
+<!------------------- Metadata Maintenance End------------------->
 
 <!------------------- Metadata Constrains ------------------->
+    <div class="content-container" id="cc-constrains" style="display:none;">
     <div class="container-fluid" id="constrains">
       <div class="container">
         <form action="/action_page.php">
@@ -782,11 +824,83 @@
           <label for="lname">User Limitation</label>
           <input type="text" id="lname" name="lastname" placeholder="">
         </form>
+        <button class="hide">Done</button>
       </div>
     </div>
-<!------------------- Metadata Constrains ------------------->
-  </div>
-</div>
+    </div>
+<!------------------- Metadata Constrains End------------------->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#upload").click(function(){
+    $("#cc-upload").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#metadata").click(function(){
+    $("#cc-metadata").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#contact").click(function(){
+    $("#cc-contact").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#spatial").click(function(){
+    $("#cc-spatial").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#reference").click(function(){
+    $("#cc-reference").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#identification").click(function(){
+    $("#cc-identification").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#distribution").click(function(){
+    $("#cc-distribution").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#transfer").click(function(){
+    $("#cc-transfer").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#maintenance").click(function(){
+    $("#cc-maintenance").toggle();
+  });
+});
+
+$(document).ready(function(){
+  $("#constrains").click(function(){
+    $("#cc-constrains").toggle();
+  });
+});
+
+</script>
+
+<script>
+$(document).ready(function(){
+  $(".hide").click(function(){
+    $("div.content-container").hide();
+  });
+});
+</script>
 
 <script>
   function openCity(evt, cityName) {
@@ -802,8 +916,10 @@
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
-  
-  //current date
+</script>
+
+<script>
+    //current date
   n =  new Date();
   y = n.getFullYear();
   m = n.getMonth() + 1;

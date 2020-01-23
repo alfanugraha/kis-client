@@ -99,7 +99,7 @@
       .sidebar-container {
         position: absolute;
         width: 300px;
-        height: 100%;
+        height: 600px;
         left: 0;
         overflow-x: hidden;
         overflow-y: auto;
@@ -107,8 +107,13 @@
         color: #fff;
       }
       
+      .content-box {
+        padding-bottom : 600px;
+        padding-left : 0px;
+      }
       .content-container {
         padding-top: 0;
+        padding-left: 300px;
       }
       
       .sidebar-logo {
@@ -176,10 +181,6 @@
         background-color: transparent;
       }
       
-      .content-container {
-        padding-left: 300px;
-      }
-
       body {
       font-family: 'Poppins', sans-serif;
       }
@@ -220,42 +221,61 @@
         padding: 20px;
       }
       
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-          }
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+      }
           
-          /* Style the buttons that are used to open the tab content */
-          .tab button {
-            font-family: 'Poppins', sans-serif;
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-          }
+      /* Style the buttons that are used to open the tab content */
+      .tab button {
+        font-family: 'Poppins', sans-serif;
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        }
           
-          /* Change background color of buttons on hover */
-          .tab button:hover {
-            background-color: #ddd;
-          }
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        background-color: #ddd;
+        }
           
-          /* Create an active/current tablink class */
-          .tab button.active {
-            background-color: #ccc;
-          }
+      /* Create an active/current tablink class */
+      .tab button.active {
+        background-color: #ccc;
+        }
           
-          /* Style the tab content */
-          .tabcontent {
-            font-family: 'Poppins', sans-serif;
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-          }      
+      /* Style the tab content */
+      .tabcontent {
+        font-family: 'Poppins', sans-serif;
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+        }
+          
+      /*Done button */
+      .hide {
+        padding : 10px;
+        font-family: 'Poppins', sans-serif;
+        width: 100px;
+        background-color: #4CAF50;
+        color: white;
+        margin-top : 20px;
+        margin-left: 55px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+        
+      /*.section-padding {
+        padding-top: 100px;
+        padding-bottom: 120px;
+      } */
 </style>
 
 <!------------------- Navbar Menu ------------------->
@@ -264,440 +284,101 @@
     Kompilasi
   </div>
   <ul class="sidebar-navigation">
-    <li>
-      <a href="#upload">
-        <i class="fa fa-home" aria-hidden="true"></i> Upload Data
+    <li id="upload">
+      <a href="#cc-upload">
+        <i aria-hidden="true"></i> Upload Data
       </a>
     </li>
     <li class="header">Input Data</li>
-    <li>
-      <a href="#metadata">
-        <i class="fa fa-users" aria-hidden="true"></i> Metadata
+    <li id="metadata">
+      <a href="#cc-metadata">
+        <i aria-hidden="true"></i> Metadata
       </a>
     </li>
-    <li>
-      <a href="#contact">
-        <i class="fa fa-cog" aria-hidden="true"></i> Contact
+    <li id="contact">
+      <a href="#cc-contact">
+        <i aria-hidden="true"></i> Contact
       </a>
     </li>
-    <li>
-      <a href="#spatial">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Spatial Representation Info
+    <li id="spatial">
+      <a href="#cc-spatial">
+        <i aria-hidden="true"></i> Spatial Representation Info
       </a>
     </li>
-    <li>
-      <a href="#reference">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Reference System Info
+    <li id="reference">
+      <a href="#cc-reference">
+        <i aria-hidden="true"></i> Reference System Info
       </a>
     </li>
-    <li>
-      <a href="#identification">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Identification Info
+    <li id="identification">
+      <a href="#cc-identification">
+        <i aria-hidden="true"></i> Identification Info
       </a>
     </li>
-    <li>
-      <a href="#distribution">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Distribution Info
+    <li id="distribution">
+      <a href="#cc-distribution">
+        <i aria-hidden="true"></i> Distribution Info
       </a>
     </li>
-    <li>
-      <a href="#transfer">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Transfer Options
+    <li id="transfer">
+      <a href="#cc-transfer">
+        <i aria-hidden="true"></i> Transfer Options
       </a>
     </li>
-    <li>
-      <a href="#maintenance">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Metadata Maintenance
+    <li id="maintenance">
+      <a href="#cc-maintenance">
+        <i aria-hidden="true"></i> Metadata Maintenance
       </a>
     </li>
-    <li>
-      <a href="#constrains">
-        <i class="fa fa-info-circle" aria-hidden="true"></i> Metada Constrains
+    <li id="constrains">
+      <a href="#cc-constrains">
+        <i aria-hidden="true"></i> Metada Constrains
       </a>
     </li>
     <li class="header">Save Data</li>
       <input type="submit" value="Submit">
   </ul>
 </div>
-<!------------------- Navbar Menu ------------------->
+<!------------------- Navbar Menu End------------------->
 
+<div <div class="content-box">
 <!------------------- Tab Contact ------------------->
-<div class="content-container">
-
-  <div class="container-fluid" id="contact">
-      <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Identify')">Identify</button>
-        <button class="tablinks" onclick="openCity(event, 'Location')">Location</button>
-        <button class="tablinks" onclick="openCity(event, 'Function')">Function</button>
-      </div>
-      
-      <div id="Identify" class="tabcontent">
-      <!------------------- Contact-Identify ------------------->
-          <div class="container">
-          <form action="/action_page.php">
-          <label for="fname">Individual Name</label>
-          <input type="text" id="fname" name="firstname" placeholder="">
-      
-          <label for="lname">Organisation Name</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-          
-          <label for="lname">Position Name</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-
-          <label for="lname">Phone</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-          
-          <label for="lname">Faximile</label>
-          <input type="text" id="lname" name="lastname" placeholder="">               
-      
-          </form>
+    <div class="content-container" id="cc-contact" style="display:none;">
+    
+      <div class="container-fluid" id="cf-contact">
+          <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Identify')">Identify</button>
+            <button class="tablinks" onclick="openTab(event, 'Location')">Location</button>
+            <button class="tablinks" onclick="openTab(event, 'Function')">Function</button>
           </div>
-      
-      <!------------------- Contact-Identify ------------------->
-      </div>
-      
-      <div id="Location" class="tabcontent">
-      <!------------------- Contact-Location ------------------->
-            <div class="container">
-              <form action="/action_page.php">
-                <label for="fname">Delivery Point</label>
-                <input type="text" id="fname" name="firstname" placeholder="">
-            
-                <label for="lname">City</label>
-                <input type="text" id="lname" name="lastname" placeholder="">
-                
-                <label for="lname">Administrative Area</label>
-                <input type="text" id="lname" name="lastname" placeholder="">
-      
-                <label for="lname">Postal Code</label>
-                <input type="text" id="lname" name="lastname" placeholder="">
-                
-                <label for="lname">Country</label>
-                <input type="text" id="lname" name="lastname" placeholder="">      
-                
-                <label for="lname">Email Address</label>
-                <input type="text" id="lname" name="lastname" placeholder="">
-              </form>
-            </div>
-      
-      <!------------------- Contact-Location ------------------->
-      </div>
-      
-      <div id="Function" class="tabcontent">
-      <!------------------- Contact-Function ------------------->
-            <div class="container">
-              <form action="/action_page.php">
-                <label for="fname">Lingkage</label>
-                <input type="text" id="fname" name="firstname" placeholder="">
-            
-                <label for="lname">Protocol</label>
-                <input type="text" id="lname" name="lastname" placeholder="">
-                
-                <label for="lname">Function</label>
-                <input type="text" id="lname" name="lastname" placeholder="">
-      
-                <label for="lname">Hours of Service</label>
-                <input type="text" id="lname" name="lastname" placeholder="">
-                
-                <label for="lname">Contact Instructions</label>
-                <input type="text" id="lname" name="lastname" placeholder="">      
-                
-                <label for="lname">Role</label>
-                <input type="text" id="lname" name="lastname" placeholder="">
-              </form>
-            </div>
-      <!------------------- Contact-Function ------------------->
-      </div>
-
-<!------------------- Tab Contact ------------------->      
-
-<!------------------- Upload Data ------------------->
-        <div class="container-fluid" id="upload">
-          <div class="container">
-            <form action="/action_page.php">
-          <label for="country">Tipe Data Vektor</label>
-          <select id="country" name="country">
-            <option value="titik">Titik</option>
-            <option value="garis">Garis</option>
-            <option value="poligon">Poligon</option>
-          </select>
           
-          <label for="country">Katalog Unsur Geografi Indonesia</label>
-          <select id="country" name="country">
-            <option value="kugi-1">KUGI 1</option>
-            <option value="kugi-2">KUGI 2</option>
-            <option value="kugi-3">KUGI 3</option>
-          </select>  
-          
-          <label for="country">Upload Shapefile</label>
-          <br>
-          <br>
-          <input type="file" name="fileToUpload" id="fileToUpload">
-            </form>
-          </div>
-          </div>
-<!------------------- Upload Data ------------------->
-      
-<!------------------- Metadata Forms ------------------->
-      <div class="container-fluid" id="metadata">
-      <div class="container">
-        <form action="/action_page.php">
-          <label for="fname">File Identifier</label>
-          <input type="text" id="fname" name="firstname" placeholder="">
-      
-          <label for="lname">Language</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-          
-          <label for="lname">Character Set</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-
-          <label for="lname">Hierarchy Level</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-          
-          <label for="lname">Metadata Standard Name</label>
-          <input type="text" id="lname" name="lastname" placeholder="">      
-          
-          <label for="lname">Metadata Standard Version</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-          
-          <label for="lname">Date Stamp</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-          
-          <label for="lname">Data Set URI</label>
-          <input type="text" id="lname" name="lastname" placeholder="">          
-        </form>
-      </div>
-      </div>
-<!------------------- Metadata Forms ------------------->
-
-  <div class="container-fluid" id="spatial">
-      <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Properties')">Properties</button>
-        <button class="tablinks" onclick="openCity(event, 'Dimension')">Dimension</button>
-      </div>
-      
-      <div id="Properties" class="tabcontent">
-        <!------------------- Spatial Representation Info-Properties ------------------->
+          <div id="Identify" class="tabcontent">
+          <!------------------- Contact-Identify ------------------->
               <div class="container">
-                <form action="/action_page.php">
-                  <label for="fname">Topology Level</label>
-                  <input type="text" id="fname" name="firstname" placeholder="">
+              <form action="/action_page.php">
+              <label for="fname">Individual Name</label>
+              <input type="text" id="fname" name="firstname" placeholder="">
+          
+              <label for="lname">Organisation Name</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
               
-                  <label for="lname">Geometry Objects</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-                  
-                  <label for="lname">Number of Dimension</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-        
-                  <label for="lname">Corner Points</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-                  
-                  <label for="lname">Point in Pixel</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">      
-                  
-                  <label for="lname">Axis Dimension Property</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-                </form>
-              </div>
-        <!------------------- Spatial Representation Info-Properties ------------------->
-      </div>
-      
-      <div id="Dimension" class="tabcontent">
-        <!------------------- Spatial Representation Info-Dimension ------------------->
-              <div class="container">
-                <form action="/action_page.php">
-                  <label for="fname">Dimension Name</label>
-                  <input type="text" id="fname" name="firstname" placeholder="">
+              <label for="lname">Position Name</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
+    
+              <label for="lname">Phone</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
               
-                  <label for="lname">Dimension Size</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-                  
-                  <label for="lname">Cell Geometry</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-        
-                  <label for="lname">Check Point Availability</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-                  
-                  <label for="lname">Control Point Availability</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">      
-                  
-                  <label for="lname">Georeference Parameters</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-                  
-                  <label for="lname">Object Type</label>
-                  <input type="text" id="lname" name="lastname" placeholder="">
-                </form>
+              <label for="lname">Faximile</label>
+              <input type="text" id="lname" name="lastname" placeholder="">               
+          
+              </form>
               </div>
-        <!------------------- Spatial Representation Info-Dimension ------------------->
-      </div>
-  </div>
-
-  <div class="container-fluid" id="reference">
-      <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Info')">Info</button>
-        <button class="tablinks" onclick="openCity(event, 'CRS')">CRS</button>
-      </div>
-      
-      <div id="Info" class="tabcontent">
-          <!------------------- Reference System Info-Info ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">Title</label>
-                    <input type="text" id="fname" name="firstname" placeholder="European Petroleum Survey Group (EPSG)">
-                
-                    <label for="lname">Date</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Date Type</label>
-                    <input type="text" id="lname" name="lastname" placeholder="publication">
           
-                    <label for="lname">Organisation Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="EPSG">
-                    
-                    <label for="lname">Linkage</label>
-                    <input type="text" id="lname" name="lastname" placeholder="http://www.epsg-registry.org">      
-                    
-                    <label for="lname">Role</label>
-                    <input type="text" id="lname" name="lastname" placeholder="originator">
-                    
-                    <label for="lname">Code</label>
-                    <input type="text" id="lname" name="lastname" placeholder="urn:ogc:def:crs:EPSG:4326">
-                    
-                    <label for="lname">Version</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                  </form>
-                </div>
-          <!------------------- Reference System Info-Info ------------------->
-      </div>
-
-      
-      <div id="CRS" class="tabcontent">
-          <!------------------- Reference System Info-CRS ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">Name</label>
-                    <input type="text" id="fname" name="firstname" placeholder="">
-                
-                    <label for="lname">Coordinate Reference System</label>
-                    <input type="text" id="lname" name="lastname" placeholder="+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0">
-                    
-                    <label for="lname">Semi Major Axis</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
+          <!------------------- Contact-Identify End ------------------->
+          </div>
           
-                    <label for="lname">Axis Unit</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                  </form>
-                </div>
-          <!------------------- Reference System Info-CRS ------------------->
-      </div>
-  </div>
-  
-  <div class="container-fluid" id="identification">
-      <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'id-desc')">Description</button>
-        <button class="tablinks" onclick="openCity(event, 'id-info')">Info</button>
-        <button class="tablinks" onclick="openCity(event, 'id-coor')">Coordinates</button>
-      </div>
-      
-      <div id="id-desc" class="tabcontent">
-          <!------------------- Identification Info-Description ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">Citation</label>
-                    <input type="text" id="fname" name="firstname" placeholder="">
-                
-                    <label for="lname">Title</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Date</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-          
-                    <label for="lname">Date Type</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Abstract</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">      
-                    
-                    <label for="lname">Resource Maintenance<label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Descriptive Keywords</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                  </form>
-                </div>
-          <!------------------- Identification Info-Description ------------------->
-      </div>
-      
-      <div id="id-info" class="tabcontent">
-          <!------------------- Identification Info-Info ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">Spatial Resolution</label>
-                    <input type="text" id="fname" name="firstname" placeholder="">
-                
-                    <label for="lname">Resource Constraints</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Spatial Representation Type</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-          
-                    <label for="lname">Language Identification</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Character Set Code</label>
-                    <input type="text" id="lname" name="lastname" placeholder="utf-8">      
-                    
-                    <label for="country">Topic Category</label>
-                    <select id="country" name="country">
-                      <option value="titik">REFERENSI SPASIAL</option>
-                      <option value="garis">BATAS WILAYAH</option>
-                      <option value="poligon">TRANSPORTASI</option>
-                      <option value="titik">HIDROGRAFI</option>
-                      <option value="garis">HIPSOGRAFI</option>
-                      <option value="poligon">VEGETASI</option>
-                      <option value="titik">LINGKUNGAN TERBANGUN</option>
-                      <option value="garis">UTILITAS</option>
-                      <option value="poligon">GEOLOGI</option>
-                      <option value="titik">TANAH</option>
-                      <option value="garis">TOPONIMI</option>
-                      <option value="poligon">KADASTER</option>
-                      <option value="titik">KEBENCANAAN</option>
-                      <option value="garis">DATASET KHUSUS</option>
-                    </select>
-                  </form>
-                </div>
-          <!------------------- Identification Info-Info ------------------->
-      </div>
-      
-      <div id="id-coor" class="tabcontent">
-          <!------------------- Identification Info-Coordinates ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">West Bound Longitude</label>
-                    <input type="text" id="fname" name="firstname" placeholder="">
-                
-                    <label for="lname">East Bound Longitude</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">South Bound Latitude</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-          
-                    <label for="lname">North Bound Latitude</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                  </form>
-                </div>
-          <!------------------- Identification Info-Coordinates ------------------->
-      </div>
-  </div>
-  
-  <div class="container-fluid" id="distribution">
-      <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'dist-location')">Location</button>
-        <button class="tablinks" onclick="openCity(event, 'dist-function')">Function</button>
-      </div>
-      
-      <div id="dist-location" class="tabcontent">
-          <!------------------- Distribution Info-Location ------------------->
+          <div id="Location" class="tabcontent">
+          <!------------------- Contact-Location ------------------->
                 <div class="container">
                   <form action="/action_page.php">
                     <label for="fname">Delivery Point</label>
@@ -715,16 +396,15 @@
                     <label for="lname">Country</label>
                     <input type="text" id="lname" name="lastname" placeholder="">      
                     
-                    <label for="lname">Email Address<label>
+                    <label for="lname">Email Address</label>
                     <input type="text" id="lname" name="lastname" placeholder="">
                   </form>
                 </div>
-          <!------------------- Distribution Info-Location ------------------->
-      </div>
-
-      
-      <div id="dist-function" class="tabcontent">
-          <!------------------- Distribution Info-Function ------------------->
+          <!------------------- Contact-Location End ------------------->
+          </div>
+          
+          <div id="Function" class="tabcontent">
+          <!------------------- Contact-Function ------------------->
                 <div class="container">
                   <form action="/action_page.php">
                     <label for="fname">Lingkage</label>
@@ -734,183 +414,624 @@
                     <input type="text" id="lname" name="lastname" placeholder="">
                     
                     <label for="lname">Function</label>
-                    <input type="text" id="lname" name="lastname" placeholder="information">
+                    <input type="text" id="lname" name="lastname" placeholder="">
           
-                    <label for="lname">Hours Of Service</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Tidak Ada">
+                    <label for="lname">Hours of Service</label>
+                    <input type="text" id="lname" name="lastname" placeholder="">
                     
                     <label for="lname">Contact Instructions</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Tidak Ada">      
-                    
-                    <label for="lname">Role<label>
-                    <input type="text" id="lname" name="lastname" placeholder="distributor">
-                  </form>
-                </div>
-          <!------------------- Distribution Info-Function ------------------->
-      </div>
-  </div>
-
-  <div class="container-fluid" id="transfer">
-      <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'WFS')">WFS</button>
-        <button class="tablinks" onclick="openCity(event, 'WMS')">WMS</button>
-        <button class="tablinks" onclick="openCity(event, 'ZIP')">ZIP Shapefile</button>
-        <button class="tablinks" onclick="openCity(event, 'ImageWFS')">ImageWFS</button>
-      </div>
-      
-      <div id="WFS" class="tabcontent">
-          <!------------------- Transfer Options-WFS ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">Linkage</label>
-                    <input type="text" id="fname" name="firstname" placeholder="">
-                
-                    <label for="lname">Protocol</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-          
-                    <label for="lname">Description</label>
-                    <input type="text" id="lname" name="lastname" placeholder="RAW">
-                    
-                    <label for="lname">Function</label>
                     <input type="text" id="lname" name="lastname" placeholder="">      
+                    
+                    <label for="lname">Role</label>
+                    <input type="text" id="lname" name="lastname" placeholder="">
                   </form>
                 </div>
-          <!------------------- Transfer Options-WFS ------------------->
+          <!------------------- Contact-Function End ------------------->
+          </div>
+        </div>
+        <button class="hide">Done</button>
       </div>
-      
-      <div id="WMS" class="tabcontent">
-          <!------------------- Transfer Options-WMS ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">Linkage</label>
-                    <input type="text" id="fname" name="firstname" placeholder="">
-                
-                    <label for="lname">Protocol</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
+    <!------------------- Tab Contact End ------------------->      
+    
+    <!------------------- Upload Data ------------------->
+          <div class="content-container" id="cc-upload" style="display:none;">
+            <div class="container-fluid" id="cf-upload">
+              <div class="container">
+                <form action="/action_page.php">
+              <label for="country">Tipe Data Vektor</label>
+              <select id="country" name="country">
+                <option value="titik">Titik</option>
+                <option value="garis">Garis</option>
+                <option value="poligon">Poligon</option>
+              </select>
+              
+              <label for="country">Katalog Unsur Geografi Indonesia</label>
+              <select id="country" name="country">
+                <option value="kugi-1">KUGI 1</option>
+                <option value="kugi-2">KUGI 2</option>
+                <option value="kugi-3">KUGI 3</option>
+              </select>  
+              
+              <label for="country">Upload Shapefile</label>
+              <br>
+              <input type="file" name="fileToUpload" id="fileToUpload">
+                </form>
+              </div>
+            </div>
+              <button class="hide">Done</button>
+          </div>
+    <!------------------- Upload Data End ------------------->
           
-                    <label for="lname">Description</label>
-                    <input type="text" id="lname" name="lastname" placeholder="ImageWMS">
-                    
-                    <label for="lname">Function</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">      
-                  </form>
-                </div>
-          <!------------------- Transfer Options-WMS ------------------->
-      </div>
-      
-      <div id="ZIP" class="tabcontent">
-          <!------------------- Transfer Options-ZIP Shapefile ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">Linkage</label>
-                    <input type="text" id="fname" name="firstname" placeholder="">
-                
-                    <label for="lname">Protocol</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
+    <!------------------- Metadata Forms ------------------->
+         <div class="content-container" id="cc-metadata" style="display:none;">
+          <div class="container-fluid" id="cf-metadata">
+          <div class="container">
+            <form action="/action_page.php">
+              <label for="fname">File Identifier</label>
+              <input type="text" id="fname" name="firstname" placeholder="">
           
-                    <label for="lname">Description</label>
-                    <input type="text" id="lname" name="lastname" placeholder="ZIP Shapefile">
-                    
-                    <label for="lname">Function</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">      
-                  </form>
-                </div>
-          <!------------------- Transfer Options-ZIP Shapefile ------------------->
-      </div>
-
-      <div id="ImageWFS" class="tabcontent">
-          <!------------------- Transfer Options-ImageWFS ------------------->
-                <div class="container">
-                  <form action="/action_page.php">
-                    <label for="fname">Linkage</label>
-                    <input type="text" id="fname" name="firstname" placeholder="">
-                
-                    <label for="lname">Protocol</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
-                    
-                    <label for="lname">Name</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">
+              <label for="lname">Language</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
+              
+              <label for="lname">Character Set</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
+    
+              <label for="lname">Hierarchy Level</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
+              
+              <label for="lname">Metadata Standard Name</label>
+              <input type="text" id="lname" name="lastname" placeholder="">      
+              
+              <label for="lname">Metadata Standard Version</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
+              
+              <label for="lname">Date Stamp</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
+              
+              <label for="lname">Data Set URI</label>
+              <input type="text" id="lname" name="lastname" placeholder="">          
+            </form>
+          </div>
+          </div>
+            <button class="hide">Done</button>
+          </div>
+    <!------------------- Metadata Forms End------------------->
+    
+    <div class="content-container" id="cc-spatial" style="display:none;">
+      <div class="container-fluid" id="cf-spatial">
+          <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Properties')">Properties</button>
+            <button class="tablinks" onclick="openTab(event, 'Dimension')">Dimension</button>
+          </div>
           
-                    <label for="lname">Description</label>
-                    <input type="text" id="lname" name="lastname" placeholder="ImageWMS">
-                    
-                    <label for="lname">Function</label>
-                    <input type="text" id="lname" name="lastname" placeholder="">      
-                  </form>
-                </div>
-          <!------------------- Transfer Options-ImageWFS ------------------->
+          <div id="Properties" class="tabcontent">
+            <!------------------- Spatial Representation Info-Properties ------------------->
+                  <div class="container">
+                    <form action="/action_page.php">
+                      <label for="fname">Topology Level</label>
+                      <input type="text" id="fname" name="firstname" placeholder="">
+                  
+                      <label for="lname">Geometry Objects</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+                      
+                      <label for="lname">Number of Dimension</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+            
+                      <label for="lname">Corner Points</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+                      
+                      <label for="lname">Point in Pixel</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">      
+                      
+                      <label for="lname">Axis Dimension Property</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+                    </form>
+                  </div>
+            <!------------------- Spatial Representation Info-Properties End------------------->
+          </div>
+          
+          <div id="Dimension" class="tabcontent">
+            <!------------------- Spatial Representation Info-Dimension ------------------->
+                  <div class="container">
+                    <form action="/action_page.php">
+                      <label for="fname">Dimension Name</label>
+                      <input type="text" id="fname" name="firstname" placeholder="">
+                  
+                      <label for="lname">Dimension Size</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+                      
+                      <label for="lname">Cell Geometry</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+            
+                      <label for="lname">Check Point Availability</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+                      
+                      <label for="lname">Control Point Availability</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">      
+                      
+                      <label for="lname">Georeference Parameters</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+                      
+                      <label for="lname">Object Type</label>
+                      <input type="text" id="lname" name="lastname" placeholder="">
+                    </form>
+                  </div>
+            <!------------------- Spatial Representation Info-Dimension End------------------->
+          </div>
       </div>
-  </div>
-
-<!------------------- Metadata Maintenance ------------------->
-    <div class="container-fluid" id="maintenance">
-      <div class="container">
-        <form action="/action_page.php">
-          <label for="fname">Maintenance and Update Frequency</label>
-          <input type="text" id="fname" name="firstname" placeholder="asNeeded">
-      
-          <label for="lname">Maintenance Note</label>
-          <input type="text" id="lname" name="lastname" placeholder="Dibuat oleh Alat Bantu Kompilasi">
-        </form>
-      </div>
+      <button class="hide">Done</button>
     </div>
-<!------------------- Metadata Maintenance ------------------->
-
-<!------------------- Metadata Constrains ------------------->
-    <div class="container-fluid" id="constrains">
-      <div class="container">
-        <form action="/action_page.php">
-          <label for="fname">Classification</label>
-          <input type="text" id="fname" name="firstname" placeholder="">
-      
-          <label for="lname">User Note</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
+    
+    <div class="content-container" id="cc-reference" style="display:none;">
+      <div class="container-fluid" id="cf-reference">
+          <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Info')">Info</button>
+            <button class="tablinks" onclick="openTab(event, 'CRS')">CRS</button>
+          </div>
           
-          <label for="lname">User Limitation</label>
-          <input type="text" id="lname" name="lastname" placeholder="">
-        </form>
+          <div id="Info" class="tabcontent">
+              <!------------------- Reference System Info-Info ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Title</label>
+                        <input type="text" id="fname" name="firstname" placeholder="European Petroleum Survey Group (EPSG)">
+                    
+                        <label for="lname">Date</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Date Type</label>
+                        <input type="text" id="lname" name="lastname" placeholder="publication">
+              
+                        <label for="lname">Organisation Name</label>
+                        <input type="text" id="lname" name="lastname" placeholder="EPSG">
+                        
+                        <label for="lname">Linkage</label>
+                        <input type="text" id="lname" name="lastname" placeholder="http://www.epsg-registry.org">      
+                        
+                        <label for="lname">Role</label>
+                        <input type="text" id="lname" name="lastname" placeholder="originator">
+                        
+                        <label for="lname">Code</label>
+                        <input type="text" id="lname" name="lastname" placeholder="urn:ogc:def:crs:EPSG:4326">
+                        
+                        <label for="lname">Version</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                      </form>
+                    </div>
+              <!------------------- Reference System Info-Info End------------------->
+          </div>
+    
+          
+          <div id="CRS" class="tabcontent">
+              <!------------------- Reference System Info-CRS ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Name</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">Coordinate Reference System</label>
+                        <input type="text" id="lname" name="lastname" placeholder="+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0">
+                        
+                        <label for="lname">Semi Major Axis</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">Axis Unit</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                      </form>
+                    </div>
+              <!------------------- Reference System Info-CRS End------------------->
+          </div>
       </div>
+      <button class="hide">Done</button>
     </div>
-<!------------------- Metadata Constrains ------------------->
-  </div>
+      
+    <div class="content-container" id="cc-identification" style="display:none;">  
+      <div class="container-fluid" id="identification">
+          <div class="tab">
+            <button class="tablinks" onclick="openTab(event,'id-desc')">Description</button>
+            <button class="tablinks" onclick="openTab(event,'id-info')">Info</button>
+            <button class="tablinks" onclick="openTab(event,'id-coor')">Coordinates</button>
+          </div>
+          
+          <div id="id-desc" class="tabcontent">
+              <!------------------- Identification Info-Description ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Citation</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">Title</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Date</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">Date Type</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Abstract</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">   
+                        
+                        <label for="lname">Resource Maintenance</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Descriptive Keywords</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                      </form>
+                    </div>
+              <!------------------- Identification Info-Description End------------------->
+          </div>
+          
+          <div id="id-info" class="tabcontent">
+              <!------------------- Identification Info-Info ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Spatial Resolution</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">Resource Constraints</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Spatial Representation Type</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">Language Identification</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Character Set Code</label>
+                        <input type="text" id="lname" name="lastname" placeholder="utf-8">      
+                        
+                        <label for="country">Topic Category</label>
+                        <select id="country" name="country">
+                          <option value="titik">REFERENSI SPASIAL</option>
+                          <option value="garis">BATAS WILAYAH</option>
+                          <option value="poligon">TRANSPORTASI</option>
+                          <option value="titik">HIDROGRAFI</option>
+                          <option value="garis">HIPSOGRAFI</option>
+                          <option value="poligon">VEGETASI</option>
+                          <option value="titik">LINGKUNGAN TERBANGUN</option>
+                          <option value="garis">UTILITAS</option>
+                          <option value="poligon">GEOLOGI</option>
+                          <option value="titik">TANAH</option>
+                          <option value="garis">TOPONIMI</option>
+                          <option value="poligon">KADASTER</option>
+                          <option value="titik">KEBENCANAAN</option>
+                          <option value="garis">DATASET KHUSUS</option>
+                        </select>
+                      </form>
+                    </div>
+              <!------------------- Identification Info-Info End------------------->
+          </div>
+          
+          <div id="id-coor" class="tabcontent">
+              <!------------------- Identification Info-Coordinates ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">West Bound Longitude</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">East Bound Longitude</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">South Bound Latitude</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">North Bound Latitude</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                      </form>
+                    </div>
+              <!------------------- Identification Info-Coordinates End------------------->
+          </div>
+      </div>
+      <button class="hide">Done</button>
+     </div>
+     
+     <div class="content-container" id="cc-distribution" style="display:none;">
+      <div class="container-fluid" id="distribution">
+          <div class="tab">
+            <button class="tablinks" onclick="openTab(event,'dist-location')">Location</button>
+            <button class="tablinks" onclick="openTab(event,'dist-function')">Function</button>
+          </div>
+          
+          <div id="dist-location" class="tabcontent">
+              <!------------------- Distribution Info-Location ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Delivery Point</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">City</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Administrative Area</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">Postal Code</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Country</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">      
+                        
+                        <label for="lname">Email Address<label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                      </form>
+                    </div>
+              <!------------------- Distribution Info-Location End------------------->
+          </div>
+    
+          
+          <div id="dist-function" class="tabcontent">
+              <!------------------- Distribution Info-Function ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Lingkage</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">Protocol</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Function</label>
+                        <input type="text" id="lname" name="lastname" placeholder="information">
+              
+                        <label for="lname">Hours Of Service</label>
+                        <input type="text" id="lname" name="lastname" placeholder="Tidak Ada">
+                        
+                        <label for="lname">Contact Instructions</label>
+                        <input type="text" id="lname" name="lastname" placeholder="Tidak Ada">      
+                        
+                        <label for="lname">Role<label>
+                        <input type="text" id="lname" name="lastname" placeholder="distributor">
+                      </form>
+                    </div>
+              <!------------------- Distribution Info-Function End------------------->
+          </div>
+      </div>
+      <button class="hide">Done</button>
+    </div>
+    
+    <div class="content-container" id="cc-transfer" style="display:none;">
+      <div class="container-fluid" id="transfer">
+          <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'WFS')">WFS</button>
+            <button class="tablinks" onclick="openTab(event, 'WMS')">WMS</button>
+            <button class="tablinks" onclick="openTab(event, 'ZIP')">ZIP Shapefile</button>
+            <button class="tablinks" onclick="openTab(event, 'ImageWFS')">ImageWFS</button>
+          </div>
+          
+          <div id="WFS" class="tabcontent">
+              <!------------------- Transfer Options-WFS ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Linkage</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">Protocol</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Name</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">Description</label>
+                        <input type="text" id="lname" name="lastname" placeholder="RAW">
+                        
+                        <label for="lname">Function</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">      
+                      </form>
+                    </div>
+              <!------------------- Transfer Options-WFS End------------------->
+          </div>
+          
+          <div id="WMS" class="tabcontent">
+              <!------------------- Transfer Options-WMS ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Linkage</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">Protocol</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Name</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">Description</label>
+                        <input type="text" id="lname" name="lastname" placeholder="ImageWMS">
+                        
+                        <label for="lname">Function</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">      
+                      </form>
+                    </div>
+              <!------------------- Transfer Options-WMS End------------------->
+          </div>
+          
+          <div id="ZIP" class="tabcontent">
+              <!------------------- Transfer Options-ZIP Shapefile ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Linkage</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">Protocol</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Name</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">Description</label>
+                        <input type="text" id="lname" name="lastname" placeholder="ZIP Shapefile">
+                        
+                        <label for="lname">Function</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">      
+                      </form>
+                    </div>
+              <!------------------- Transfer Options-ZIP Shapefile End------------------->
+          </div>
+    
+          <div id="ImageWFS" class="tabcontent">
+              <!------------------- Transfer Options-ImageWFS ------------------->
+                    <div class="container">
+                      <form action="/action_page.php">
+                        <label for="fname">Linkage</label>
+                        <input type="text" id="fname" name="firstname" placeholder="">
+                    
+                        <label for="lname">Protocol</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+                        
+                        <label for="lname">Name</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">
+              
+                        <label for="lname">Description</label>
+                        <input type="text" id="lname" name="lastname" placeholder="ImageWMS">
+                        
+                        <label for="lname">Function</label>
+                        <input type="text" id="lname" name="lastname" placeholder="">      
+                      </form>
+                    </div>
+              <!------------------- Transfer Options-ImageWFS End------------------->
+          </div>
+      </div>
+      <button class="hide">Done</button>
+    </div>
+    
+    <!------------------- Metadata Maintenance ------------------->
+       <div class="content-container" id="cc-maintenance" style="display:none;">
+        <div class="container-fluid" id="maintenance">
+          <div class="container">
+            <form action="/action_page.php">
+              <label for="fname">Maintenance and Update Frequency</label>
+              <input type="text" id="fname" name="firstname" placeholder="asNeeded">
+          
+              <label for="lname">Maintenance Note</label>
+              <input type="text" id="lname" name="lastname" placeholder="Dibuat oleh Alat Bantu Kompilasi">
+            </form>
+            <button class="hide">Done</button>
+          </div>
+        </div>
+        </div>
+    <!------------------- Metadata Maintenance End------------------->
+    
+    <!------------------- Metadata Constrains ------------------->
+        <div class="content-container" id="cc-constrains" style="display:none;">
+        <div class="container-fluid" id="constrains">
+          <div class="container">
+            <form action="/action_page.php">
+              <label for="fname">Classification</label>
+              <input type="text" id="fname" name="firstname" placeholder="">
+          
+              <label for="lname">User Note</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
+              
+              <label for="lname">User Limitation</label>
+              <input type="text" id="lname" name="lastname" placeholder="">
+            </form>
+            <button class="hide">Done</button>
+          </div>
+        </div>
+        </div>
+<!------------------- Metadata Constrains End------------------->
 </div>
 
-<script>
-  function openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script>
+      $(document).ready(function(){
+        $("#upload").click(function(){
+          $("#cc-upload").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#metadata").click(function(){
+          $("#cc-metadata").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#contact").click(function(){
+          $("#cc-contact").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#spatial").click(function(){
+          $("#cc-spatial").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#reference").click(function(){
+          $("#cc-reference").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#identification").click(function(){
+          $("#cc-identification").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#distribution").click(function(){
+          $("#cc-distribution").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#transfer").click(function(){
+          $("#cc-transfer").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#maintenance").click(function(){
+          $("#cc-maintenance").toggle();
+        });
+      });
+      
+      $(document).ready(function(){
+        $("#constrains").click(function(){
+          $("#cc-constrains").toggle();
+        });
+      });
+      
+      </script>
+      
+      <script>
+      $(document).ready(function(){
+        $(".hide").click(function(){
+          $("div.content-container").hide();
+        });
+      });
+      </script>
+      
+      <script>
+        function openTab(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+      </script>
   
+    <script>
   //current date
-  n =  new Date();
-  y = n.getFullYear();
-  m = n.getMonth() + 1;
-  d = n.getDate();
-  document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
-</script>
+    n =  new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+    </script>
    </section>
    <!--================ Kompilasi Data =================-->   
 
     <!-- footer start -->
-    <footer class="footer">
+    <footer class="footer" id="footer-upload-menu">
       <div class="copy-right_text">
           <div class="container">
               <div class="footer_border"></div>

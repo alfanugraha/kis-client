@@ -1183,7 +1183,7 @@ h3 {
   box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.1);
   position: fixed;
   width: 100%;
-  top: -70px;
+  top: -75px;
   left: 0;
   right: 0;
   z-index: 990;
@@ -5517,6 +5517,7 @@ h6 {
 /* line 112, ../../Arafath/CL/CL October/214. App Landing Page/HTML/scss/_blog.scss */
 .single-blog .single-blog-content {
   padding: 30px;
+  padding-bottom : 300px;
 }
 
 /* line 116, ../../Arafath/CL/CL October/214. App Landing Page/HTML/scss/_blog.scss */
