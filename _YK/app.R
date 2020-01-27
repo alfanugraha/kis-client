@@ -36,7 +36,7 @@ source('variables.R')
 source('kugi5.R')
 
 ###*Setting Up Interface####
-#ui <- source('interface.R')
+ui <- source('ui.R')
 
 ###*Preparing Server#### 
 server <- function(input, output, session) {
@@ -1258,5 +1258,5 @@ server <- function(input, output, session) {
 }
 
 ###*Run the application#### 
-shinyApp(ui = htmlTemplate(filename = "www/index.html"), server = server)
+shinyApp(ui= ui, server = server)
 

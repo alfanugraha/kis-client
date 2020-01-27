@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>AppLab</title>
+	<title>KIS Satu Peta</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>Data</h3>
+                        <h3>Status</h3>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,67 @@
 	
 	<!--================ Data =================-->
    <section class="integrasi-data section-padding">
+     <style>
+       /********* Form and Submit Button *********/
+      input[type=text], select {
+        font-family: 'Poppins', sans-serif;       
+        width: 30%;
+        padding: 12px 10px;
+        margin: 8px 0;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
       
+      input[type=submit] {
+        font-family: 'Poppins', sans-serif;
+        width: 50%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        margin-left: 30px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      input[type=submit]:hover {
+        background-color: #45a049;
+      }
+      
+      /********* Tab Content *********//
+      div.container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+      }
+      
+      /*Button */
+      .btn {
+        padding : 10px;
+        font-family: 'Poppins', sans-serif;
+        width: 150px;
+        background-color: #4CAF50;
+        color: white;
+        margin-top : 20px;
+        margin-left: 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+     </style>
+
+      <div class="container">
+        <form>
+            <label for="choose-data">Pilih Data</label>
+                <select id="choose-data" name="choose-data"></select>
+            <button class="btn">Muat Atribut</button>
+            
+        </form>
+      </div>
+            
    </section>	
 	<!--================ Data =================-->
 

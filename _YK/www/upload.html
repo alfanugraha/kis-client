@@ -4,7 +4,7 @@
 <head>
    <meta charset="utf-8">
    <meta http-equiv="x-ua-compatible" content="ie=edge">
-   <title>KIS</title>
+   <title>KIS Satu Peta</title>
    <meta name="description" content="">
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -58,12 +58,19 @@
                                         </li>
                                         <li><a href="#">Integrasi <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                 <li><a href="integrasi-data.html">Data</a></li>
+                                                 <li><a href="igt-igd.html">IGT & IGD</a></li>
+                                                 <li><a href="status.html">Status</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="sinkronisasi.html">Sinkronisasi</a></li>
+                                        <li><a href="#">Sinkronisasi <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                 <li><a href="data-tatakan.html">Data Tatakan & Izin</a></li>
+                                                 <li><a href="sync-status.html">Status</a></li>
+                                                 <li><a href="satu-peta.html">Satu Peta</a></li>
+                                            </ul>
+                                        </li>
                                         <li><a href="tentang.html">Tentang</a></li>
-                                  </ul>
+                                    </ul>
                               </nav>
                           </div>
                       </div>
@@ -99,7 +106,7 @@
       .sidebar-container {
         position: absolute;
         width: 300px;
-        height: 600px;
+        height: 650px;
         left: 0;
         overflow-x: hidden;
         overflow-y: auto;
@@ -186,6 +193,9 @@
       }
       
       /********* Form and Submit Button *********/
+      .form{
+        margin-left: -200px;
+      }
       input[type=text], select {
         font-family: 'Poppins', sans-serif;       
         width: 30%;
@@ -266,7 +276,7 @@
         background-color: #4CAF50;
         color: white;
         margin-top : 20px;
-        margin-left: 55px;
+        margin-left: 40px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
@@ -354,7 +364,7 @@
           
           <div id="Identify" class="tabcontent">
           <!------------------- Contact-Identify ------------------->
-              <div class="container">
+              <div class="container" style="margin-left: 0">
               <form action="/action_page.php">
               <label for="fname">Individual Name</label>
               <input type="text" id="fname" name="firstname" placeholder="">
@@ -379,7 +389,7 @@
           
           <div id="Location" class="tabcontent">
           <!------------------- Contact-Location ------------------->
-                <div class="container">
+                <div class="container" style="margin-left: 0">
                   <form action="/action_page.php">
                     <label for="fname">Delivery Point</label>
                     <input type="text" id="fname" name="firstname" placeholder="">
@@ -405,7 +415,7 @@
           
           <div id="Function" class="tabcontent">
           <!------------------- Contact-Function ------------------->
-                <div class="container">
+                <div class="container" style="margin-left: 0">
                   <form action="/action_page.php">
                     <label for="fname">Lingkage</label>
                     <input type="text" id="fname" name="firstname" placeholder="">
@@ -436,7 +446,7 @@
     <!------------------- Upload Data ------------------->
           <div class="content-container" id="cc-upload" style="display:none;">
             <div class="container-fluid" id="cf-upload">
-              <div class="container">
+              <div class="container" style="margin-left: 0">
                 <form action="/action_page.php">
               <label for="country">Tipe Data Vektor</label>
               <select id="country" name="country">
@@ -465,7 +475,7 @@
     <!------------------- Metadata Forms ------------------->
          <div class="content-container" id="cc-metadata" style="display:none;">
           <div class="container-fluid" id="cf-metadata">
-          <div class="container">
+          <div class="container" style="margin-left: 0">
             <form action="/action_page.php">
               <label for="fname">File Identifier</label>
               <input type="text" id="fname" name="firstname" placeholder="">
@@ -506,7 +516,7 @@
           
           <div id="Properties" class="tabcontent">
             <!------------------- Spatial Representation Info-Properties ------------------->
-                  <div class="container">
+                  <div class="container" style="margin-left: 0">
                     <form action="/action_page.php">
                       <label for="fname">Topology Level</label>
                       <input type="text" id="fname" name="firstname" placeholder="">
@@ -532,7 +542,7 @@
           
           <div id="Dimension" class="tabcontent">
             <!------------------- Spatial Representation Info-Dimension ------------------->
-                  <div class="container">
+                  <div class="container" style="margin-left: 0">
                     <form action="/action_page.php">
                       <label for="fname">Dimension Name</label>
                       <input type="text" id="fname" name="firstname" placeholder="">
@@ -571,7 +581,7 @@
           
           <div id="Info" class="tabcontent">
               <!------------------- Reference System Info-Info ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Title</label>
                         <input type="text" id="fname" name="firstname" placeholder="European Petroleum Survey Group (EPSG)">
@@ -604,7 +614,7 @@
           
           <div id="CRS" class="tabcontent">
               <!------------------- Reference System Info-CRS ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Name</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -635,7 +645,7 @@
           
           <div id="id-desc" class="tabcontent">
               <!------------------- Identification Info-Description ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Citation</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -664,7 +674,7 @@
           
           <div id="id-info" class="tabcontent">
               <!------------------- Identification Info-Info ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Spatial Resolution</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -705,7 +715,7 @@
           
           <div id="id-coor" class="tabcontent">
               <!------------------- Identification Info-Coordinates ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">West Bound Longitude</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -735,7 +745,7 @@
           
           <div id="dist-location" class="tabcontent">
               <!------------------- Distribution Info-Location ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Delivery Point</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -762,7 +772,7 @@
           
           <div id="dist-function" class="tabcontent">
               <!------------------- Distribution Info-Function ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Lingkage</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -800,7 +810,7 @@
           
           <div id="WFS" class="tabcontent">
               <!------------------- Transfer Options-WFS ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Linkage</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -823,7 +833,7 @@
           
           <div id="WMS" class="tabcontent">
               <!------------------- Transfer Options-WMS ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Linkage</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -846,7 +856,7 @@
           
           <div id="ZIP" class="tabcontent">
               <!------------------- Transfer Options-ZIP Shapefile ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Linkage</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -869,7 +879,7 @@
     
           <div id="ImageWFS" class="tabcontent">
               <!------------------- Transfer Options-ImageWFS ------------------->
-                    <div class="container">
+                    <div class="container" style="margin-left: 0">
                       <form action="/action_page.php">
                         <label for="fname">Linkage</label>
                         <input type="text" id="fname" name="firstname" placeholder="">
@@ -896,7 +906,7 @@
     <!------------------- Metadata Maintenance ------------------->
        <div class="content-container" id="cc-maintenance" style="display:none;">
         <div class="container-fluid" id="maintenance">
-          <div class="container">
+          <div class="container" style="margin-left: 0">
             <form action="/action_page.php">
               <label for="fname">Maintenance and Update Frequency</label>
               <input type="text" id="fname" name="firstname" placeholder="asNeeded">
@@ -913,7 +923,7 @@
     <!------------------- Metadata Constrains ------------------->
         <div class="content-container" id="cc-constrains" style="display:none;">
         <div class="container-fluid" id="constrains">
-          <div class="container">
+          <div class="container" style="margin-left: 0">
             <form action="/action_page.php">
               <label for="fname">Classification</label>
               <input type="text" id="fname" name="firstname" placeholder="">
