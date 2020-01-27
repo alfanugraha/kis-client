@@ -1,4 +1,4 @@
-htmlTemplate("index.html",
+htmlTemplate("index-test.html",
              count_data = uiOutput("countData"),
              data_type = selectInput("shapeGeom", "Tipe data vektor", choices=c(`Titik`="_PT_", `Garis`="_LN_", `Poligon`="_AR_")),
              kugi = uiOutput("listOfKugi"),
