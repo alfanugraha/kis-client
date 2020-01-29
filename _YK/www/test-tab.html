@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2020 by anonymous (http://jsbin.com/mawevuwi/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+  <title>Tabs Anchor Watch / jq version /  new4 </title>
+  
+  <style>
+    .tabs > div { display:none;}
+    .tabs > div.active { display:block;}
+    
+    a { display:inline-block; padding:0.5em;}
+    .tabs > div { padding:1em; border:2px solid #ccc;}
+   </style>
+</head>
+<body>
+
+  
+
+  
+  <!-- links -->
+  <a href="#tab1">Tab1</a>
+  <a href="#tab2">Tab2</a>
+  <a href="#tab3">Tab3</a>
+  <a href="#tab4">Tab4</a>
+
+  <!-- content -->
+  <div class="tabs">
+    <div id="tab1"> Tab one content </div>
+    <div id="tab2"> Tab Two content </div>
+    <div id="tab3"> 
+      Tab Three content with a <a href="#tab1">link to tab 1</a>
+    </div>
+    <div id="tab4"> Tab Four content </div>
+  </div>
+ 
+  
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  
+  <script>
+  
+    var $tabs = $('.tabs > div'), _currhash, $currTab;
+    
+    function showTab() {
+       if($currTab.length>0) {  
+         $tabs.removeClass('active');
+         $currTab.addClass('active');
+       }
+    }
+    /* find the panels and 'unlink' the id to prevent page jump */
+    $tabs.each(function() {
+       var _id = $(this).attr('id');
+       $(this).attr('id',_id+'_tab');
+       /* eg we have given the tab an id of 'tab1_tab' */
+    });
+
+    /* set up an anchor 'watch' for the panels */
+    function anchorWatch() {
+      if(document.location.hash.length>0) {
+        /* only run if 'hash' has changed */
+        if(_currhash!==document.location.hash) {
+           _currhash = document.location.hash;
+           /* we only want to match the 'unlinked' id's */
+           $currTab = $(_currhash+'_tab');
+           showTab();
+       }
+      }
+    } 
+    setInterval(anchorWatch,300);
+  
+    </script>
+
+
+</body>
+</html>
