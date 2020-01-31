@@ -1,0 +1,529 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<title>KIS Satu Peta</title>
+		<link href="css/todc-bootstrap.min.css" rel="stylesheet">
+		<style>
+		  .bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		  }
+		  
+		  .jumbotron {
+			padding: 4rem 2rem;
+			margin-bottom: 2rem;
+			background-color: #eee;
+			border-radius: .12
+		  }
+
+		  @media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+			  font-size: 3.5rem;
+			}
+		  }
+		  
+		  .nav-tabs {
+			border-bottom: 1px solid #dddddd;
+			margin-top: -1px; 
+			margin-bottom: 10px;
+			border-top-right-radius: 0; 
+			border-top-left-radius: 0;
+			font-size: 20px;
+		  }
+		  
+		  .nav-tabs > li {
+			float: left;
+			margin-bottom: -1px;
+		  }
+		  
+		  .nav-tabs > li > a { 
+			margin-right: 2px; 
+			line-height: 1.42857143; 
+			border: 1px solid transparent; 
+			border-radius: 4px 4px 0 0;
+			padding: 10px 10px 1px 10px;
+		  }
+		  
+		  .nav-tabs > li > a:hover { border-color: #eeeeee #eeeeee #dddddd }
+		  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { 
+			color: #555555; 
+			background-color: #ffffff; 
+			border: 1px solid #dddddd; 
+			border-bottom-color: transparent; 
+			cursor: default 
+		  }
+		</style>
+		<link href="css/dashboard.css" rel="stylesheet">
+		<style type="text/css">
+			/* Chart.js */
+			@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}
+			@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}
+			.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
+		</style>
+	</head>
+	<body data-gr-c-s-loaded="true">
+		<nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md flex-md-nowrap shadow">
+			<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">KIS Satu Peta</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto nav" id="compilationApps" data-tabs="tabs">
+					<li class="nav-item">
+						<a class="nav-link" href="#tabBeranda" data-toggle="tab">Beranda</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kompilasi</a>
+						<div class="dropdown-menu" >
+							<a class="dropdown-item" href="#tabUnggah" data-toggle="tab">Unggah</a>
+							<a class="dropdown-item" href="#tabData" data-toggle="tab">Data</a>
+							<a class="dropdown-item" href="#tabEditKugi" data-toggle="tab">Padu Padan KUGI</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Integrasi</a>
+						<div class="dropdown-menu" >
+							<a class="dropdown-item" href="#tabIntData" data-toggle="tab">Data</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sinkronisasi</a>
+						<div class="dropdown-menu" >
+							<a class="dropdown-item" href="#tabSinkData" data-toggle="tab">Data</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#tabTentang" data-toggle="tab">Tentang KIS</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="tab-content" id="compilationContents">
+			<div class="tab-pane active" id="tabBeranda">
+				<main role="main">
+					<!-- Main jumbotron for a primary marketing message or call to action -->
+					<div class="jumbotron">
+						<div class="container">
+							<h1 class="display-3">KIS Satu Peta</h1>
+							<!--<p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+							<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more ?</a></p>-->
+						</div>
+					</div>
+					<div class="container">
+					<!-- Example row of columns -->
+						<div class="row">
+						<div class="col-md-4">
+							<h2>Kompilasi</h2>
+							<p>Proses pengumpulan Informasi Geospasial (IG) Tematik yang dimiliki oleh Kementerian/Lembaga saat ini</p>
+							<!-- <p><a class="btn btn-secondary" href="#tabUnggah" role="button">Unggah</a></p> -->
+						</div>
+						<div class="col-md-4">
+							<h2>Integrasi</h2>
+							<p>Proses penyelarasan IG Tematik, baik yang telah dimiliki oleh Kementerian/Lembaga maupun yang baru dibuat, terhadap IG Dasar</p>
+							<!--<p><a class="btn btn-secondary" href="#" role="button">View details ?</a></p> -->
+						</div>
+						<div class="col-md-4">
+							<h2>Sinkronisasi</h2>
+							<p>Proses penyelarasan antar IG Tematik, termasuk didalamnya penyelesaian konflik yang terjadi akibat tumpang tindih hasil Integrasi</p>
+							<!--<p><a class="btn btn-secondary" href="#" role="button">View details ?</a></p> -->
+						</div>
+						</div>
+						<hr>
+					</div> <!-- /container -->
+				</main>
+			</div>
+			
+			<div class="tab-pane" id="tabUnggah">
+				<div class="container-fluid">
+					<div class="row">
+						<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+							<div class="sidebar-sticky">
+								<ul class="nav flex-column" data-tabs="tabs">
+									<span class="sidebar-heading text-muted px-3 mt-4 mb-1">Unggah</span>
+									<li class="nav-item active"><a class="nav-link" href="#md1" data-toggle="tab">Unggah Data</a></li>
+									<span class="sidebar-heading text-muted px-3 mt-4 mb-1">Metadata</span>
+									<li class="nav-item"><a class="nav-link" href="#md2" data-toggle="tab">Metadata</a></li>
+									<li class="nav-item"><a class="nav-link" href="#md3" data-toggle="tab">Contact</a></li>
+									<li class="nav-item"><a class="nav-link" href="#md4" data-toggle="tab">Spatial Representation Info</a></li>
+									<li class="nav-item"><a class="nav-link" href="#md5" data-toggle="tab">Reference System Info</a></li>
+									<li class="nav-item"><a class="nav-link" href="#md6" data-toggle="tab">Identification Info</a></li>
+									<li class="nav-item"><a class="nav-link" href="#md7" data-toggle="tab">Distribution Info</a></li>
+									<li class="nav-item"><a class="nav-link" href="#md8" data-toggle="tab">Transfer Options</a></li>
+									<li class="nav-item"><a class="nav-link" href="#md9" data-toggle="tab">Metadata Maintenance</a></li>
+									<li class="nav-item"><a class="nav-link" href="#md10" data-toggle="tab">Metadata Constrains</a></li>
+									<span class="sidebar-heading text-muted px-3 mt-4 mb-1">Simpan</span>
+									<button id="saveButton" class="btn btn-raised-dark" type="submit" style="margin: 10px 170px 0px 30px;">Simpan</button>
+								</ul>
+
+							</div>
+						</nav>
+
+						<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+							<div class="tab-content" id="uploadContents">
+								<nav aria-label="breadcrumb">
+								  <ol class="breadcrumb" style="padding: 2rem 0rem 0rem 0rem;">
+									<li class="breadcrumb-item" aria-current="page">Kompilasi</li>
+									<li class="breadcrumb-item" aria-current="page">Unggah</li>
+								  </ol>
+								</nav>
+								<div class="tab-pane active" id="md1">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Unggah Data</h1>
+									</div>
+									{{ select_geom }} 
+									{{ list_kugi }} 
+									{{ select_shp }} 
+									
+								</div>
+								<div class="tab-pane" id="md2">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Metadata</h1>
+									</div>
+									{{ textInput(mdEntity$vars[1], mdEntity$name[1], value="", width=NULL, placeholder="")  }}
+									{{ textInput(mdEntity$vars[2], mdEntity$name[2], value="", width=NULL, placeholder="")  }}
+									{{ textInput(mdEntity$vars[3], mdEntity$name[3], value="", width=NULL, placeholder="")  }}
+									{{ textInput(mdEntity$vars[4], mdEntity$name[4], value="", width=NULL, placeholder="")  }}
+									{{ textInput(mdEntity$vars[5], mdEntity$name[5], value="", width=NULL, placeholder="")  }}
+									{{ textInput(mdEntity$vars[6], mdEntity$name[6], value="", width=NULL, placeholder="")  }}
+									{{ dateInput(mdEntity$vars[7], mdEntity$name[7])  }}
+									{{ textInput(mdEntity$vars[8], mdEntity$name[8], value="", width=NULL, placeholder="")  }}
+								</div>
+								<div class="tab-pane" id="md3">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Contact</h1>
+									</div>
+									<div class="col-sm-200px">
+									  <div class="nav-tabs-custom">
+										<ul class="nav navbar-light bg-light mb-3" data-tabs="tabs">
+											<li class="nav-item active">
+												<a href="#identity" data-toggle="tab" class="nav-link">Identity</a>
+											</li>
+											<li class="nav-item">
+												<a href="#location" data-toggle="tab" class="nav-link">Location</a>
+											</li>
+											<li class="nav-item">
+												<a href="#function" data-toggle="tab" class="nav-link">Function</a>
+											</li>
+										</ul>
+										<div class="tab-content" id="contactInput">
+											<div class="tab-pane active" id="identity">
+												{{ textInput(ctEntity$vars[1], ctEntity$name[1], value="", width=NULL, placeholder="")  }}
+												{{ textInput(ctEntity$vars[2], ctEntity$name[2], value="", width=NULL, placeholder="")  }}
+												{{ textInput(ctEntity$vars[3], ctEntity$name[3], value="", width=NULL, placeholder="")  }}
+												{{ textInput(ctEntity$vars[4], ctEntity$name[4], value="", width=NULL, placeholder="")  }}
+												{{ textInput(ctEntity$vars[5], ctEntity$name[5], value="", width=NULL, placeholder="")  }}
+											</div>
+											<div class="tab-pane" id="location">
+												{{ textInput(ctEntity$vars[6], ctEntity$name[6], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[7], ctEntity$name[7], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[8], ctEntity$name[8], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[9], ctEntity$name[9], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[10], ctEntity$name[10], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[11], ctEntity$name[11], value="", width=NULL, placeholder="") }}
+											</div>
+											<div class="tab-pane" id="function">
+												{{ textInput(ctEntity$vars[12], ctEntity$name[12], value="", width=NULL, placeholder="") }}     
+												{{ textInput(ctEntity$vars[13], ctEntity$name[13], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[14], ctEntity$name[14], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[15], ctEntity$name[15], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[16], ctEntity$name[16], value="", width=NULL, placeholder="") }}
+												{{ textInput(ctEntity$vars[17], ctEntity$name[17], value="", width=NULL, placeholder="") }}
+											</div>
+										</div>
+									  </div>
+									</div>
+									
+								</div>
+								<div class="tab-pane" id="md4">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Spatial Representation Info</h1>
+									</div>
+									<div class="col-sm-200px">
+									  <div class="nav-tabs-custom">
+										<ul class="nav navbar-light bg-light mb-3" data-tabs="tabs">
+											<li class="nav-item active">
+												<a href="#properties" data-toggle="tab" class="nav-link">Properties</a>
+											</li>
+											<li class="nav-item">
+												<a href="#dimension" data-toggle="tab" class="nav-link">Dimension</a>
+											</li>
+										</ul>
+										<div class="tab-content" id="spatial">
+											<div class="tab-pane active" id="properties">
+												{{ textInput(sriEntity$vars[1], sriEntity$name[1], value="", width=NULL, placeholder="") }}
+												{{ textInput(sriEntity$vars[2], sriEntity$name[2], value="", width=NULL, placeholder="") }}
+												{{ textInput(sriEntity$vars[3], sriEntity$name[3], value="", width=NULL, placeholder="") }}
+												{{ textInput(sriEntity$vars[4], sriEntity$name[4], value="", width=NULL, placeholder="") }}
+												{{ textInput(sriEntity$vars[5], sriEntity$name[5], value="", width=NULL, placeholder="") }}
+												{{ textInput(sriEntity$vars[6], sriEntity$name[6], value="", width=NULL, placeholder="") }}
+											</div>
+											<div class="tab-pane" id="dimension">
+												{{ textInput(sriEntity$vars[7], sriEntity$name[7], value="", width=NULL, placeholder="")   }}
+												{{ textInput(sriEntity$vars[8], sriEntity$name[8], value="", width=NULL, placeholder="")   }}
+												{{ textInput(sriEntity$vars[9], sriEntity$name[9], value="", width=NULL, placeholder="")   }}
+												{{ textInput(sriEntity$vars[10], sriEntity$name[10], value="", width=NULL, placeholder="") }}
+												{{ textInput(sriEntity$vars[11], sriEntity$name[11], value="", width=NULL, placeholder="") }}
+												{{ textInput(sriEntity$vars[12], sriEntity$name[12], value="", width=NULL, placeholder="") }}
+												{{ textInput(sriEntity$vars[13], sriEntity$name[13], value="", width=NULL, placeholder="") }}
+											</div>
+										</div>
+									  </div>
+									</div>
+									
+								</div>
+								<div class="tab-pane" id="md5">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Reference System Info</h1>
+									</div>
+									<div class="col-sm-200px">
+									  <div class="nav-tabs-custom">
+										<ul class="nav navbar-light bg-light mb-3" data-tabs="tabs">
+											<li class="nav-item active">
+												<a href="#info" data-toggle="tab" class="nav-link">Info</a>
+											</li>
+											<li class="nav-item">
+												<a href="#crs" data-toggle="tab" class="nav-link">CRS</a>
+											</li>
+										</ul>
+										<div class="tab-content" id="reference">
+											<div class="tab-pane active" id="info">
+												{{ textInput(refSysEntity$vars[1], refSysEntity$name[1], value="European Petroleum Survey Group (EPSG) Geodetic Parameter Registry", width=NULL, placeholder="") }}
+												{{ dateInput(refSysEntity$vars[2], refSysEntity$name[2]) }}
+												{{ textInput(refSysEntity$vars[3], refSysEntity$name[3], value="publication", width=NULL, placeholder="") }}
+												{{ textInput(refSysEntity$vars[4], refSysEntity$name[4], value="EPSG", width=NULL, placeholder="") }}
+												{{ textInput(refSysEntity$vars[5], refSysEntity$name[5], value="http://www.epsg-registry.org", width=NULL, placeholder="") }}
+												{{ textInput(refSysEntity$vars[6], refSysEntity$name[6], value="originator", width=NULL, placeholder="") }}
+												{{ textInput(refSysEntity$vars[7], refSysEntity$name[7], value="urn:ogc:def:crs:EPSG:4326", width=NULL, placeholder="") }}
+												{{ textInput(refSysEntity$vars[8], refSysEntity$name[8], value="", width=NULL, placeholder="") }}
+											</div>
+											<div class="tab-pane" id="crs">
+												{{ textInput(refSysEntity$vars[9], refSysEntity$name[9], value="", width=NULL, placeholder="") }}
+												{{ textInput(refSysEntity$vars[10], refSysEntity$name[10], value="+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0", width=NULL, placeholder="") }}
+												{{ textInput(refSysEntity$vars[11], refSysEntity$name[11], value="", width=NULL, placeholder="") }}
+												{{ textInput(refSysEntity$vars[12], refSysEntity$name[12], value="", width=NULL, placeholder="") }}
+											</div>
+										</div>
+									  </div>
+									</div>
+									
+								</div>
+								<div class="tab-pane" id="md6">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Identification Info</h1>
+									</div>
+									<div class="col-sm-200px">
+									  <div class="nav-tabs-custom">
+										<ul class="nav navbar-light bg-light mb-3" data-tabs="tabs">
+											<li class="nav-item active">
+												<a href="#iddesc" data-toggle="tab" class="nav-link">Description</a>
+											</li>
+											<li class="nav-item">
+												<a href="#idinfo" data-toggle="tab" class="nav-link">Info</a>
+											</li>
+											<li class="nav-item">
+												<a href="#idcoord" data-toggle="tab" class="nav-link">Coordinates</a>
+											</li>
+										</ul>
+										<div class="tab-content" id="identification">
+											<div class="tab-pane active" id="iddesc">
+												{{ textInput(idInfoEntity$vars[1], idInfoEntity$name[1], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[2], idInfoEntity$name[2], value="", width=NULL, placeholder="") }}
+												{{ dateInput(idInfoEntity$vars[3], idInfoEntity$name[3]) }}
+												{{ textInput(idInfoEntity$vars[4], idInfoEntity$name[4], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[5], idInfoEntity$name[5], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[6], idInfoEntity$name[6], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[7], idInfoEntity$name[7], value="", width=NULL, placeholder="") }}
+											</div>
+											<div class="tab-pane" id="idinfo">
+												{{ textInput(idInfoEntity$vars[8], idInfoEntity$name[8], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[9], idInfoEntity$name[9], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[10], idInfoEntity$name[10], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[11], idInfoEntity$name[11], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[12], idInfoEntity$name[12], value="utf-8", width=NULL, placeholder="") }}
+												{{ uiOutput("listOfTopicCategory") }}
+											</div>
+											<div class="tab-pane" id="idcoord">
+												{{ textInput(idInfoEntity$vars[14], idInfoEntity$name[14], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[15], idInfoEntity$name[15], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[16], idInfoEntity$name[16], value="", width=NULL, placeholder="") }}
+												{{ textInput(idInfoEntity$vars[17], idInfoEntity$name[17], value="", width=NULL, placeholder="") }}
+											</div>
+										</div>
+									  </div>
+									</div>
+									
+								</div>
+								<div class="tab-pane" id="md7">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Distribution Info</h1>
+									</div>
+									<div class="col-sm-200px">
+									  <div class="nav-tabs-custom">
+										<ul class="nav navbar-light bg-light mb-3" data-tabs="tabs">
+											<li class="nav-item active">
+												<a href="#distidentity" data-toggle="tab" class="nav-link">Identity</a>
+											</li>
+											<li class="nav-item">
+												<a href="#distlocation" data-toggle="tab" class="nav-link">Location</a>
+											</li>
+											<li class="nav-item">
+												<a href="#distfunction" data-toggle="tab" class="nav-link">Function</a>
+											</li>
+										</ul>
+										<div class="tab-content" id="distribution">
+											<div class="tab-pane active" id="distidentity">
+												{{ textInput(disInfoEntity$vars[1], disInfoEntity$name[1], value="", width=NULL, placeholder="")  }}
+												{{ textInput(disInfoEntity$vars[2], disInfoEntity$name[2], value="", width=NULL, placeholder="")  }}
+												{{ textInput(disInfoEntity$vars[3], disInfoEntity$name[3], value="", width=NULL, placeholder="")  }}
+												{{ textInput(disInfoEntity$vars[4], disInfoEntity$name[4], value="", width=NULL, placeholder="")  }}
+												{{ textInput(disInfoEntity$vars[5], disInfoEntity$name[5], value="", width=NULL, placeholder="")  }}
+											</div>
+											<div class="tab-pane" id="distlocation">
+												{{ textInput(disInfoEntity$vars[6], disInfoEntity$name[6], value="", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[7], disInfoEntity$name[7], value="", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[8], disInfoEntity$name[8], value="", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[9], disInfoEntity$name[9], value="", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[10], disInfoEntity$name[10], value="", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[11], disInfoEntity$name[11], value="", width=NULL, placeholder="") }}
+											</div>
+											<div class="tab-pane" id="distfunction">
+												{{ textInput(disInfoEntity$vars[12], disInfoEntity$name[12], value="", width=NULL, placeholder="") }}     
+												{{ textInput(disInfoEntity$vars[13], disInfoEntity$name[13], value="", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[14], disInfoEntity$name[14], value="information", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[15], disInfoEntity$name[15], value="Tidak Ada", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[16], disInfoEntity$name[16], value="Tidak Ada", width=NULL, placeholder="") }}
+												{{ textInput(disInfoEntity$vars[17], disInfoEntity$name[17], value="distributor", width=NULL, placeholder="") }}
+											</div>
+										</div>
+									  </div>
+									</div>
+									
+								</div>
+								<div class="tab-pane" id="md8">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Transfer Options</h1>
+									</div>
+									<div class="col-sm-200px">
+									  <div class="nav-tabs-custom">
+										<ul class="nav navbar-light bg-light mb-3" data-tabs="tabs">
+											<li class="nav-item active">
+												<a href="#trfwfs" data-toggle="tab" class="nav-link">Transfer Options WFS</a>
+											</li>
+											<li class="nav-item">
+												<a href="#trfwms" data-toggle="tab" class="nav-link">Transfer Options WMS</a>
+											</li>
+											<li class="nav-item">
+												<a href="#trfzip" data-toggle="tab" class="nav-link">Transfer Options ZIP Shapefile</a>
+											</li>
+											<li class="nav-item">
+												<a href="#trfimagewfs" data-toggle="tab" class="nav-link">Transfer Options ImageWFS</a>
+											</li>
+										</ul>
+										<div class="tab-content" id="transfer">
+											<div class="tab-pane active" id="trfwfs">
+												{{textInput(paste0(trfOptWFSEntity$vars[1]), trfOptWFSEntity$name[1], value="", width=NULL, placeholder="")   }}
+												{{textInput(paste0(trfOptWFSEntity$vars[2]), trfOptWFSEntity$name[2], value="", width=NULL, placeholder="")   }}
+												{{textInput(paste0(trfOptWFSEntity$vars[3]), trfOptWFSEntity$name[3], value="", width=NULL, placeholder="")   }}
+												{{textInput(paste0(trfOptWFSEntity$vars[4]), trfOptWFSEntity$name[4], value="RAW", width=NULL, placeholder="")}}
+												{{textInput(paste0(trfOptWFSEntity$vars[5]), trfOptWFSEntity$name[5], value="", width=NULL, placeholder="")    }}
+											</div>
+											<div class="tab-pane" id="trfwms">
+												{{textInput(paste0(trfOptWMSEntity$vars[1]), trfOptWMSEntity$name[1], value="", width=NULL, placeholder="")          }}
+												{{textInput(paste0(trfOptWMSEntity$vars[2]), trfOptWMSEntity$name[2], value="", width=NULL, placeholder="")          }}
+												{{textInput(paste0(trfOptWMSEntity$vars[3]), trfOptWMSEntity$name[3], value="", width=NULL, placeholder="")          }}
+												{{textInput(paste0(trfOptWMSEntity$vars[4]), trfOptWMSEntity$name[4], value="ImageWMS", width=NULL, placeholder="")  }}
+												{{textInput(paste0(trfOptWMSEntity$vars[5]), trfOptWMSEntity$name[5], value="", width=NULL, placeholder="")          }}
+											</div>
+											<div class="tab-pane" id="trfzip">
+												{{textInput(paste0(trfOptZIPEntity$vars[1]), trfOptZIPEntity$name[1], value="", width=NULL, placeholder="")               }}
+												{{textInput(paste0(trfOptZIPEntity$vars[2]), trfOptZIPEntity$name[2], value="", width=NULL, placeholder="")               }}
+												{{textInput(paste0(trfOptZIPEntity$vars[3]), trfOptZIPEntity$name[3], value="", width=NULL, placeholder="")               }}
+												{{textInput(paste0(trfOptZIPEntity$vars[4]), trfOptZIPEntity$name[4], value="ZIP Shapefile", width=NULL, placeholder="")  }}
+												{{textInput(paste0(trfOptZIPEntity$vars[5]), trfOptZIPEntity$name[5], value="", width=NULL, placeholder="")               }}
+											</div>
+											<div class="tab-pane" id="trfimagewfs">
+												{{textInput(paste0(trfOptIWMSEntity$vars[1]), trfOptIWMSEntity$name[1], value="", width=NULL, placeholder="")         }}
+												{{textInput(paste0(trfOptIWMSEntity$vars[2]), trfOptIWMSEntity$name[2], value="", width=NULL, placeholder="")         }}
+												{{textInput(paste0(trfOptIWMSEntity$vars[3]), trfOptIWMSEntity$name[3], value="", width=NULL, placeholder="")         }}
+												{{textInput(paste0(trfOptIWMSEntity$vars[4]), trfOptIWMSEntity$name[4], value="ImageWMS", width=NULL, placeholder="") }}
+												{{textInput(paste0(trfOptIWMSEntity$vars[5]), trfOptIWMSEntity$name[5], value="", width=NULL, placeholder="")         }}
+											</div>
+										</div>
+									  </div>
+									</div>
+									
+								</div>
+								<div class="tab-pane" id="md9">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Metadata Maintenance</h1>
+									</div>
+									{{ textInput(mdMtncEntity$vars[1], mdMtncEntity$name[1], value="asNeeded", width=NULL, placeholder="") }}
+									{{ textInput(mdMtncEntity$vars[2], mdMtncEntity$name[2], value="Dibuat oleh Alat Bantu Kompilasi", width=NULL, placeholder="") }}
+								</div>
+								<div class="tab-pane" id="md10">
+									<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+										<h1 class="h2">Metadata Constrains</h1>
+									</div>
+									{{ textInput(mdConstEntity$vars[1], mdConstEntity$name[1], value="", width=NULL, placeholder="") }}
+									{{ textInput(mdConstEntity$vars[2], mdConstEntity$name[2], value="", width=NULL, placeholder="") }}
+									{{ textInput(mdConstEntity$vars[3], mdConstEntity$name[3], value="", width=NULL, placeholder="") }}
+								</div>
+							</div>
+						</main>	
+					</div>
+				</div>
+			</div>
+			
+			<div class="tab-pane" id="tabData">
+				<main role="main">
+						<button id="refreshButton" class="btn btn-raised-dark" type="submit" style="margin: 10px 170px 0px 30px;">Refresh</button>
+						<hr/>
+						{{ dataTableOutput("comp_data") }}
+				</main>
+			</div>
+			
+			<div class="tab-pane" id="tabEditKugi">
+				<main role="main">
+				
+					{{ h1(textOutput("rawTitle")) }}
+					<hr/>
+					{{ dataTableOutput("editAttribute") }}
+					<hr/>
+					"Padu padan kolom atribut"
+					{{ uiOutput("listOfShpColumn") }}
+					{{ uiOutput("listOfKugiAttrib") }}
+					<button id="matchButton" class="btn btn-raised-dark" type="submit" style="margin: 10px 170px 0px 30px;">Padu Padan</button>
+					<button id="finishMatchButton" class="btn btn-raised-dark" type="submit" style="margin: 10px 170px 0px 30px;">Selesai</button>
+					
+					
+				</main>
+			</div>
+			
+			<div class="tab-pane" id="tabTentang">
+				<main role="main">
+				
+				</main>
+			</div>
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+		<!--<script type="text/javascript">
+			jQuery(document).ready(function ($){
+				$('#compilationApps').tab();
+			});
+		</script>-->
+		<script src="js/bootstrap.js"></script>
+		<script src="js/feather.min.js"></script>
+		<script src="js/Chart.min.js"></script>
+		<script src="js/dashboard.js"></script>
+
+	</body>
+</html>
