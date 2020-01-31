@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="css/slicknav.css">
     <link rel="stylesheet" href="css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+	  <style>
+	  .aktif_content > div { display:none; }
+	  .aktif_content > div.active { display:block; }
+	  </style>
 </head>
 
 <body>
@@ -50,7 +54,6 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a class="active" href="#tab1">Beranda</a></li>
-                                        <!-- li><a href="Pricing.html">Pricing</a></li> --> 
                                         <li><a href="#">Kompilasi <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="#tab2">Upload</a></li>
@@ -89,7 +92,9 @@
 
     <!-- slider_area_start -->
 	
+	  <div class="aktif_content" >
 	
+		<div id="tab1" >
     <div class="slider_area">
         <div class="single_slider  d-flex align-items-center slider_bg_1">
             <div class="container">
@@ -114,51 +119,9 @@
         </div>
     </div>
     <!-- slider_area_end -->
-    
-	<style>
-	.aktif_content > div { display:none; }
-	.aktif_content > div.active { display:block; }
-	
-	a { display:inline-block; padding:0.5em;}
-    .aktif_content > div { padding:1em; border:2px solid #ccc;}
-	</style>
-	
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script>
-		var $tabs = $('.aktif_content > div'), _currhash, $currTab;
-
-		function showTab() {
-		   if($currTab.length>0) {  
-			 $tabs.removeClass('active');
-			 $currTab.addClass('active');
-		   }
-		}
-		/* find the tabs and 'unlink' the id to prevent page jump */
-		$tabs.each(function() {
-		   var _id = $(this).attr('id');
-		   $(this).attr('id',_id+'_tab');
-		   /* eg we have given the tab an id of 'tab1_tab' */
-		});
-
-		/* set up an anchor 'watch' for the panels */
-		function anchorWatch() {
-		  if(document.location.hash.length>0) {
-			/* only run if 'hash' has changed */
-			if(_currhash!==document.location.hash) {
-			   _currhash = document.location.hash;
-			   /* we only want to match the 'unlinked' id's */
-			   $currTab = $(_currhash+'_tab');
-			   showTab();
-		   }
-		  }
-		} 
-		setInterval(anchorWatch,300);
-	</script>
 	
     <!-- tentang_kis  -->
-	<div class="aktif_content" >
-	
-		<div id="tab1_tab" >
+
 		<div class="service_area">
 			<div class="container">
 				<div class="row">
@@ -225,13 +188,7 @@
 		
 		</div>
 		<!--/ ksp_section_end  -->
-
-		<style>
-			.shiny-html-output{
-				font-size: 20px;
-				color: black;
-			}
-		</style>
+		
 		<!-- data_input  -->
 		<div class="service_area_2">
 			<div class="container">
@@ -295,7 +252,7 @@
     <!--/ support_section_end  -->
     
 	
-		<div id="tab2_tab">
+		<div id="tab2">
 			  <style>
 			  /********** Sidebar Menu **********/
 			  .sidebar-container {
@@ -1287,6 +1244,41 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/mail-script.js"></script>
 
     <script src="js/main.js"></script>
+    
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+  	  
+  		var $tabs = $('.tabs > div'), _currhash, $currTab;
+  		
+  		function showTab() {
+  		   if($currTab.length>0) {  
+  			 $tabs.removeClass('active');
+  			 $currTab.addClass('active');
+  		   }
+  		}
+  		/* find the panels and 'unlink' the id to prevent page jump */
+  		$tabs.each(function() {
+  		   var _id = $(this).attr('id');
+  		   $(this).attr('id',_id+'_tab');
+  		   /* eg we have given the tab an id of 'tab1_tab' */
+  		});
+  
+  		/* set up an anchor 'watch' for the panels */
+  		function anchorWatch() {
+  		  if(document.location.hash.length>0) {
+  			/* only run if 'hash' has changed */
+  			if(_currhash!==document.location.hash) {
+  			   _currhash = document.location.hash;
+  			   /* we only want to match the 'unlinked' id's */
+  			   $currTab = $(_currhash+'_tab');
+  			   showTab();
+  		   }
+  		  }
+  		} 
+  		setInterval(anchorWatch,300);
+	  
+	  </script>
+	
 </body>
 
 </html>
